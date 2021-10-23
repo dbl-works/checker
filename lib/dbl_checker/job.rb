@@ -25,7 +25,7 @@ module DblChecker
         @errors = []
       end
 
-      def perform_check(last_executed_at: nil)
+      def perform_check(last_executed_at = nil)
         return unless due?(last_executed_at)
 
         Timeout.timeout(self.class.check_options[:timeout_in_seconds]) do
@@ -47,7 +47,7 @@ module DblChecker
       private
 
       def due?(last_executed_at)
-        return true if last_executed_at.nil?
+        return true if last_executed_at.nil? || last_executed_at.empty?
 
         last_executed_at < self.class.check_options[:every].ago
       end

@@ -18,7 +18,7 @@ module DblChecker
         loop do
           executions.each do |job_klass, last_executed_at|
             puts "Job #{job_klass} was last executed at #{last_executed_at}"
-            `bundle exec rails runner "#{job_klass}.new.perform_check(last_executed_at: #{last_executed_at})"`
+            `bundle exec rails runner "#{job_klass}.new.perform_check(#{last_executed_at})"`
           end
 
           sleep(ITERATE_JOBS_EVERY)
