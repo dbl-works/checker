@@ -33,7 +33,8 @@ end
 
 
 ## Deployment
-Must have ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely.
+- Must have ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely
+- Optionally set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3073`
 
 
 ## Local testing
