@@ -13,10 +13,11 @@ module DblChecker
       ITERATE_JOBS_EVERY = 1.hour.to_i
 
       def run
-        write_pid_to_file
+        puts 'Running DblChecker::Manager::Client..'
 
         loop do
           executions.each do |job_klass, last_executed_at|
+            puts "Job #{job_klass} was last executed at #{last_executed_at}"
             `bundle exec rails runner "#{job_klass}.new.perform_check(last_executed_at: #{last_executed_at})"`
           end
 
@@ -46,12 +47,6 @@ module DblChecker
       # }
       def fetch_executions_from_remote
         DblChecker::Remote.instance.job_executions
-      end
-
-      def write_pid_to_file
-        File.open('tmp/pids/dbl_checker.pid', 'w') do |f|
-          f.write(Process.pid)
-        end
       end
     end
   end
