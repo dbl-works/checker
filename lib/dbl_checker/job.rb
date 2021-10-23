@@ -17,7 +17,7 @@ module DblChecker
     module InstanceMethods
       def initialize
         @check = DblChecker::Check.new(
-          version: DblChecker.configuration.version,
+          app_version: DblChecker.configuration.app_version,
           name: self.class.check_options[:name],
           description: self.class.check_options[:description],
           job_klass: self.class.name,

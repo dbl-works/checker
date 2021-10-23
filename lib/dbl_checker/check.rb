@@ -2,15 +2,15 @@ require 'ostruct'
 require 'securerandom'
 require 'json'
 
-# id                            :uuid      not null
-# created_at                    :datetime  not null
-# updated_at                    :datetime  not null
-# error                         :text
-# version(e.g. the commit hash) :string    not null
-# timout_after_seconds          :integer
-# name                          :string    not null
-# description                   :string
-# job_klass                     :string    not null
+# id                                :uuid      not null
+# created_at                        :datetime  not null
+# updated_at                        :datetime  not null
+# error                             :text
+# app_version(e.g. the commit hash) :string    not null
+# timout_after_seconds              :integer
+# name                              :string    not null
+# description                       :string
+# job_klass                         :string    not null
 module DblChecker
   class Check < OpenStruct
     def to_json
