@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
 
+STDERR.sync = STDOUT.sync = true
+
 require_relative '../lib/dbl_checker/manager/client'
 require_relative '../lib/dbl_checker/manager/healthz'
 
 environment = ENV['RAILS_ENV'] || 'development'
 
 client_pid = fork do
-  STDERR.sync = STDOUT.sync = true
   `export RAILS_ENV=#{environment}`
   DblChecker::Manager::Client.new.run
 end
