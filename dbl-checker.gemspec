@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.email         = 'checker@dbl.works'
   s.license       = 'MIT'
 
-  s.files         = Dir['lib/**/*.rb', 'spec/**/*']
+  s.files         = Dir['lib/**/*.rb', 'spec/**/*', 'bin/*']
   s.require_path  = 'lib'
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
