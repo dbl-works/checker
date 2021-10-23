@@ -13,7 +13,7 @@ module DblChecker
       ITERATE_JOBS_EVERY = 1.hour.to_i
 
       def run
-        puts 'Running DblChecker::Manager::Client..'
+        puts "Running DblChecker::Manager::Client in #{ENV['RAILS_ENV']} mode.."
 
         loop do
           executions.each do |execution|

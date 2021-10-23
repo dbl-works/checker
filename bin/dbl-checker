@@ -3,9 +3,10 @@
 require_relative '../lib/dbl_checker/manager/client'
 require_relative '../lib/dbl_checker/manager/healthz'
 
-`export RAILS_ENV=development` unless ENV['RAILS_ENV']
+environment = ENV['RAILS_ENV'] || 'development'
 
 client_pid = fork do
+  `export RAILS_ENV=#{environment}`
   DblChecker::Manager::Client.new.run
 end
 
