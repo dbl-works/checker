@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/dbl_checker/manager/client'
+require_relative '../lib/dbl_checker/manager/healthz'
+
+
+client_pid = fork do
+  DblChecker::Manager::Client.new.run
+end
+
+puts "started manager with pid: #{client_pid}"
+
+DblChecker::Manager::Healthz.new.serve(client_pid)
