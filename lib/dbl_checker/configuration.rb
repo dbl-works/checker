@@ -19,8 +19,10 @@ module DblChecker
     attr_accessor :healthz_port
     attr_accessor :mock
     attr_accessor :mock_job_executions
+    attr_accessor :logger
 
     def initialize
+      @logger = nil
       @mock = false
       @mock_job_executions = {}
       @healthz_port = 3017
