@@ -1,6 +1,6 @@
 require 'json'
 require 'singleton'
-require 'farady'
+require 'faraday'
 
 module DblChecker
   class Remote
