@@ -1,5 +1,5 @@
 require 'singleton'
-require 'farady'
+require 'faraday'
 
 module DblChecker
   class SlackNotifier
