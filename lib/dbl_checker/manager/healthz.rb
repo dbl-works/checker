@@ -7,6 +7,8 @@ module DblChecker
     class Healthz
       def initialize
         @server = TCPServer.new('0.0.0.0', DblChecker.configuration.healthz_port)
+        port = (ENV.fetch('DBL_CHECKER_HEALTHZ_PORT') { '3073' }).to_i
+        @server = TCPServer.new('0.0.0.0', port)
       end
 
       def serve
