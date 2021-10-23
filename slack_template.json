@@ -1,0 +1,41 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": ":warning: $CHECKER_NAME failed",
+        "emoji": true
+      }
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "plain_text",
+        "text": "Importance: $CHECKER_IMPORTANCE",
+        "emoji": false
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "$CHECKER_ERROR_MESSAGE"
+      },
+      "accessory": {
+        "type": "button",
+        "text": {
+          "type": "plain_text",
+          "text": "Dashboard",
+          "emoji": false
+        },
+        "value": "squake_abc123-def456",
+        "url": "https://checkers.dbl.works",
+        "action_id": "button-action"
+      }
+    }
+  ]
+}
