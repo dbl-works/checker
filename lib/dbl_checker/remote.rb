@@ -6,11 +6,12 @@ module DblChecker
   class Remote
     include Singleton
 
+    # read DBL_CHECKER_API_KEY from ENV, so the manager can call this without booting the main app
     def initialize
       @base_url = 'https://checkers.dbl.works'
       @headers = {
         Accept: 'application/json',
-        Authorization: "Bearer #{DblChecker.configuration.api_key}",
+        Authorization: "Bearer #{ENV['DBL_CHECKER_API_KEY']}",
         'Content-Type': 'application/json',
       }
       @mock = true

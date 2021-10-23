@@ -1,5 +1,6 @@
 require 'active_support/all'
 require_relative '../remote'
+require_relative '../server_error'
 
 module DblChecker
   module Manager

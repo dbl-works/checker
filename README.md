@@ -33,6 +33,7 @@ end
 
 
 ## Deployment
+Must have ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely.
 
 
 ## Local testing
