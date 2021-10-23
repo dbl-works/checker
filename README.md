@@ -35,6 +35,7 @@ end
 ## Deployment
 - Must have ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely
 - Optionally set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3073`
+- run `bin/dbl-checker` to launch the client process and the `/healthz` TCP server
 
 
 ## Local testing
