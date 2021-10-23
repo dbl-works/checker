@@ -6,22 +6,24 @@ module DblChecker
     # that will return 200 if or client (that executs jobs) is running.
     class Healthz
       def initialize
-        @server = TCPServer.new('0.0.0.0', DblChecker.configuration.healthz_port)
         port = (ENV.fetch('DBL_CHECKER_HEALTHZ_PORT') { '3073' }).to_i
         @server = TCPServer.new('0.0.0.0', port)
       end
 
-      def serve
-        # puts "server pid: #{Process.pid}"
+      def serve(client_pid)
+        puts 'Running DblChecker::Manager::Healthz..'
 
         while session = @server.accept
           request = session.gets
 
           if request.match?(/\/healthz\s/)
-            if manager_is_running?
+            if client_is_running?(client_pid)
               serve_200(session)
+              puts 'serve /healthz   OK'
             else
               serve_400(session)
+              puts 'serve /healthz   CLIENT ERROR'
+              puts 'DblChecker::Manager::Client is not running anymore!'
             end
           else
             serve_404(session)
@@ -53,17 +55,10 @@ module DblChecker
       end
 
       # check if our runner process executes jobs
-      def manager_is_running?
-        Process::kill(0, manager_pid) == 1
+      def client_is_running?(client_pid)
+        Process::kill(0, client_pid) == 1
       rescue Errno::ESRCH
         false
-      end
-
-      def manager_pid
-        pid = `cat manager.pid`.chomp.to_i
-        raise 'manager.pid is empty' if pid.zero?
-
-        pid
       end
     end
   end
