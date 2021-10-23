@@ -16,24 +16,25 @@ module DblChecker
         puts 'Running DblChecker::Manager::Client..'
 
         loop do
-          executions.each do |job_klass, last_executed_at|
-            puts "Job #{job_klass} was last executed at #{last_executed_at}"
-            `bundle exec rails runner "#{job_klass}.new.perform_check(#{last_executed_at})"`
+          executions.each do |execution|
+            puts "Job #{execution[:job_klass]} was last executed at #{execution[:last_executed_at]}"
+            `bundle exec rails runner "#{execution[:job_klass]}.new.perform_check(#{execution[:last_executed_at]})"`
           end
 
           sleep(ITERATE_JOBS_EVERY)
         end
       end
 
-      def jobs
-        @jobs ||= Dir['app/checkers/**/*_checker.rb'].map do |file_name|
+      # `jobs` is a method defined on IRB, hence avoid it
+      def checker_jobs
+        @checker_jobs ||= Dir['app/checkers/**/*_checker.rb'].map do |file_name|
           file_name[/app\/checkers\/(.*)\.rb/, 1].classify
         end
       end
 
       def executions
         executions_from_remote = fetch_executions_from_remote
-        jobs.map do |job_klass|
+        checker_jobs.map do |job_klass|
           {
             job_klass: job_klass,
             last_executed_at: executions_from_remote[job_klass]&.to_time,
