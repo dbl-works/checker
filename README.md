@@ -1,5 +1,10 @@
 # Dbl Checker
 
+## TODOs
+- remove Slack notifications from here, the server will handle this
+- server: check the SLA, if the 2nd failure of a checker occurs more than SLA-days after the 1st failure, we need to escallate that more (e.g. a different Slack notification)
+- server: show metrics over how often checks fail, and how fast failures get resolved
+
 ## Example usage
 ```ruby
 class TransactionChecker
@@ -9,7 +14,7 @@ class TransactionChecker
     every: 4.hours.to_i,
     description: 'Check transactions exist and are zero in sum',
     name: 'transactions_checker',
-    importance: :high,
+    sla: 1.day,
     aggregate_failures: true,
     runbook: 'notion.so/dbl/checkers/runbooks/project-name/transactions',
   )

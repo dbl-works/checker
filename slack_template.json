@@ -15,7 +15,7 @@
       "type": "section",
       "text": {
         "type": "plain_text",
-        "text": "Importance: $CHECKER_IMPORTANCE",
+        "text": "SLA: $CHECKER_SLA",
         "emoji": false
       }
     },

@@ -28,7 +28,7 @@ module DBLChecker
       @app_version = nil
       @default_check_options = {
         every: 24.hours, # 24 hours
-        importance: :low,
+        sla: 3.days,
         active: true,
         slack_channel: 'checkers',
         timeout_in_seconds: 30,
