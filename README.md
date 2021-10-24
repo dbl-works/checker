@@ -32,7 +32,7 @@ class TransactionChecker
 end
 ```
 
-Find all `check_options` defined in the [DBLChecker::Check]('lib/dbl_checker/check.rb) class.
+Find all `check_options` defined in the [DBLChecker::Check](lib/dbl_checker/check.rb) class.
 
 
 ## Deployment
