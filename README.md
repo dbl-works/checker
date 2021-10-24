@@ -4,6 +4,7 @@
 - remove Slack notifications from here, the server will handle this
 - server: check the SLA, if the 2nd failure of a checker occurs more than SLA-days after the 1st failure, we need to escallate that more (e.g. a different Slack notification)
 - server: show metrics over how often checks fail, and how fast failures get resolved
+- add CLI options to the dbl-checker so it can run locally without sending checks to remote (or offer a sandbox on remote)
 
 ## Example usage
 Checkers are expected to live under `app/checkers/*_checker.rb`
