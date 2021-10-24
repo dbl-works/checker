@@ -14,12 +14,9 @@ module DBLChecker
         Authorization: "Bearer #{ENV['DBL_CHECKER_API_KEY']}",
         'Content-Type': 'application/json',
       }
-      @mock = ENV['RAILS_ENV'] == 'development'
     end
 
     def persist(check)
-      return puts("persisted check: #{check.to_json}") if @mock
-
       Faraday.post(
         "#{@base_url}/webhooks",
         check.to_json,
@@ -30,8 +27,6 @@ module DBLChecker
     end
 
     def job_executions
-      return { 'TransactionChecker' => '2021-10-22 21:02:31 UTC' } if @mock # 1 day ago of 23rd Oct, 21:02:31 UTC
-
       response = Faraday.get(
         "#{@base_url}/job-executions",
         nil,
