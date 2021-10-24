@@ -14,7 +14,7 @@ module DblChecker
         Authorization: "Bearer #{ENV['DBL_CHECKER_API_KEY']}",
         'Content-Type': 'application/json',
       }
-      @mock = ENV['DBL_CHECKER_MOCK_REMOTE'] == 'true'
+      @mock = ENV['RAILS_ENV'] == 'development'
     end
 
     def persist(check)
