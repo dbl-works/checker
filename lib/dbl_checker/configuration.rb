@@ -33,6 +33,7 @@ module DBLChecker
         slack_channel: 'checkers',
         timeout_in_seconds: 30,
         aggregate_failures: false,
+        runbook: nil,
       }
     end
   end

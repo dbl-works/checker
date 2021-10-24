@@ -2,6 +2,9 @@ require 'ostruct'
 require 'securerandom'
 require 'json'
 
+#
+# == Schema Information
+#
 # id                                :uuid      not null
 # created_at                        :datetime  not null
 # updated_at                        :datetime  not null
@@ -11,6 +14,9 @@ require 'json'
 # name                              :string    not null
 # description                       :string
 # job_klass                         :string    not null
+# runbook                           :string
+#
+
 module DBLChecker
   class Check < OpenStruct
     def to_json
