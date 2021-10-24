@@ -100,7 +100,6 @@ end
 - Must have ENV var `RAILS_ENV` defined
 - Optionally set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3073`
 - Run `bin/dbl-checker` to launch the client process and the `/healthz` TCP server
-- when `RAILS_ENV` is set to `'development'`, all https requests are mocked
 
 
 ## Local testing
