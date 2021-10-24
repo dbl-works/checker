@@ -1,4 +1,4 @@
-module DblChecker
+module DBLChecker
   class AssertionFailed < StandardError
   end
 end

@@ -5,7 +5,7 @@ require 'dbl_checker/version'
 Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
   s.name          = 'dbl-checker'
-  s.version       = DblChecker::VERSION
+  s.version       = DBLChecker::VERSION
   s.summary       = 'Regularly assert expectations for your application still hold true.'
   s.description   = 'Regularly assert expectations for your application still hold true.'
 

@@ -3,7 +3,7 @@
 ## Example usage
 ```ruby
 class TransactionChecker
-  include DblChecker::Job
+  include DBLChecker::Job
 
   check_options(
     every: 4.hours.to_i,

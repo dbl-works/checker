@@ -11,7 +11,7 @@ require 'json'
 # name                              :string    not null
 # description                       :string
 # job_klass                         :string    not null
-module DblChecker
+module DBLChecker
   class Check < OpenStruct
     def to_json
       self.to_h.to_json

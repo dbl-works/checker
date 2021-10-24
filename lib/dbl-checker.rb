@@ -7,8 +7,8 @@ require 'dbl_checker/remote'
 require 'dbl_checker/server_error'
 require 'dbl_checker/slack_notifier'
 
-DblChecker.configure do |config|
+DBLChecker.configure do |config|
   config.logger = nil
 end
 
-module DblChecker; end
+module DBLChecker; end

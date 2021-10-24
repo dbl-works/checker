@@ -1,7 +1,7 @@
 #
 # Global gem configuration class
 #
-module DblChecker
+module DBLChecker
   class << self
     attr_accessor :configuration
   end

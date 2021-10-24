@@ -1,4 +1,4 @@
-module DblChecker
+module DBLChecker
   module Job
     def self.included(base)
       base.class_eval do
@@ -10,15 +10,15 @@ module DblChecker
     module ClassMethods
       def check_options(options = {})
         options.symbolize_keys!
-        @check_options = DblChecker.configuration.default_check_options.merge(options)
+        @check_options = DBLChecker.configuration.default_check_options.merge(options)
       end
     end
 
     module InstanceMethods
       def initialize
         @check_options = self.class.instance_variable_get(:'@check_options')
-        @check = DblChecker::Check.new(
-          app_version: DblChecker.configuration.app_version,
+        @check = DBLChecker::Check.new(
+          app_version: DBLChecker.configuration.app_version,
           name: @check_options[:name],
           description: @check_options[:description],
           job_klass: self.class.name,
@@ -33,7 +33,7 @@ module DblChecker
           perform
         end
 
-      rescue DblChecker::AssertionFailed => e
+      rescue DBLChecker::AssertionFailed => e
         @errors << e.message
       rescue Timeout::Error => e
         @errors << e.message # "execution expired"
@@ -59,18 +59,18 @@ module DblChecker
         if @check_options[:aggregate_failures]
           @errors << message
         else
-          raise DblChecker::AssertionFailed, message
+          raise DBLChecker::AssertionFailed, message
         end
       end
 
       def persist_check_on_remote
-        DblChecker::Remote.instance.persist(@check)
+        DBLChecker::Remote.instance.persist(@check)
       end
 
       def notify_slack
-        return if DblChecker.configuration.slack_webhook_url.nil?
+        return if DBLChecker.configuration.slack_webhook_url.nil?
 
-        DblChecker::SlackNotifier.instance.notify(@check)
+        DBLChecker::SlackNotifier.instance.notify(@check)
       end
     end
   end

@@ -1,12 +1,12 @@
 require 'singleton'
 require 'faraday'
 
-module DblChecker
+module DBLChecker
   class SlackNotifier
     include Singleton
 
     def initialize
-      @webhook_url = DblChecker.configuration.slack_webhook_url
+      @webhook_url = DBLChecker.configuration.slack_webhook_url
       @headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     end
 
@@ -17,7 +17,7 @@ module DblChecker
         @headers,
         )
     rescue StandardError => e
-      raise DblChecker::ServerError, "Failed to notify Slack. Error: #{e.message}"
+      raise DBLChecker::ServerError, "Failed to notify Slack. Error: #{e.message}"
     end
   end
 end

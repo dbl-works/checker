@@ -2,7 +2,7 @@ require 'json'
 require 'singleton'
 require 'faraday'
 
-module DblChecker
+module DBLChecker
   class Remote
     include Singleton
 
@@ -26,7 +26,7 @@ module DblChecker
         @headers,
       )
     rescue StandardError => e
-      raise DblChecker::ServerError, "Failed persist check. Error: #{e.message}"
+      raise DBLChecker::ServerError, "Failed persist check. Error: #{e.message}"
     end
 
     def job_executions
@@ -41,7 +41,7 @@ module DblChecker
 
       JSON.parse(response.body, symbolize_names: false)
     rescue StandardError => e
-      raise DblChecker::ServerError, "Failed to check for job executions. Error: #{e.message}"
+      raise DBLChecker::ServerError, "Failed to check for job executions. Error: #{e.message}"
     end
   end
 end

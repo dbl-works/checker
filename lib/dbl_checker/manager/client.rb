@@ -2,7 +2,7 @@ require 'active_support/all'
 require_relative '../remote'
 require_relative '../server_error'
 
-module DblChecker
+module DBLChecker
   module Manager
     # persistent process, that checks for jobs and executes them
     class Client
@@ -13,7 +13,7 @@ module DblChecker
       ITERATE_JOBS_EVERY = 1.hour.to_i
 
       def run
-        puts "Running DblChecker::Manager::Client in #{ENV['RAILS_ENV']} mode.."
+        puts "Running DBLChecker::Manager::Client in #{ENV['RAILS_ENV']} mode.."
 
         loop do
           executions.each do |execution|
@@ -47,7 +47,7 @@ module DblChecker
       #   'BarChecker' => '2021-10-23 08:15:03 +0200',
       # }
       def fetch_executions_from_remote
-        DblChecker::Remote.instance.job_executions
+        DBLChecker::Remote.instance.job_executions
       end
     end
   end

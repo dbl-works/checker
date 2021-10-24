@@ -1,6 +1,6 @@
 require 'socket'
 
-module DblChecker
+module DBLChecker
   module Manager
     # Very simple TCP server to serve a /healthz endpoint
     # that will return 200 if or client (that executs jobs) is running.
@@ -11,7 +11,7 @@ module DblChecker
       end
 
       def serve(client_pid)
-        puts 'Running DblChecker::Manager::Healthz..'
+        puts 'Running DBLChecker::Manager::Healthz..'
 
         while session = @server.accept
           request = session.gets
@@ -23,7 +23,7 @@ module DblChecker
             else
               serve_400(session)
               puts 'serve /healthz   CLIENT ERROR'
-              puts 'DblChecker::Manager::Client is not running anymore!'
+              puts 'DBLChecker::Manager::Client is not running anymore!'
             end
           else
             serve_404(session)
