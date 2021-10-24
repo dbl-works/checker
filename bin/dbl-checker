@@ -9,6 +9,7 @@ environment = ENV['RAILS_ENV'] || 'development'
 
 client_pid = fork do
   `export RAILS_ENV=#{environment}`
+  `export DBL_CHECKER_MOCK_REMOTE=true` if environment == 'development'
   DblChecker::Manager::Client.new.run
 end
 

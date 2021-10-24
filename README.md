@@ -36,7 +36,8 @@ end
 - Must have ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely
 - Must have ENV var `RAILS_ENV` defined
 - Optionally set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3073`
-- run `bin/dbl-checker` to launch the client process and the `/healthz` TCP server
+- Run `bin/dbl-checker` to launch the client process and the `/healthz` TCP server
+- Optionally set `DBL_CHECKER_MOCK_REMOTE` to `'true'` to mock communication with the dbl-checker server
 
 
 ## Local testing
