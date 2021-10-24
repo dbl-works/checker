@@ -76,7 +76,21 @@ DBLChecker.configure do |config|
     timeout_in_seconds: 30,
   }
 end
+```
 
+Config for tests:
+
+```ruby
+# spec/support/dbl_checker.rb
+RSpec.configure do |config|
+  config.before do
+    # returns nothing, persists a check to remote
+    allow(DBLChecker::Remote.instance).to receive(:persist)
+    # returns a hash mapping a checker name to its last execution
+    # { 'TransactionChecker' => '2021-10-22 21:02:31 UTC' }
+    allow(DBLChecker::Remote.instance).to receive(:job_executions)
+  end
+end
 ```
 
 
