@@ -28,7 +28,7 @@ module DBLChecker
 
     def job_executions
       response = Faraday.get(
-        "#{@base_url}/job-executions",
+        "#{@base_url}/checks/meta",
         nil,
         @headers,
       )
