@@ -27,6 +27,7 @@ module DBLChecker
       end
 
       def perform_check(last_executed_at = nil)
+        return unless @check_options[:active]
         return unless due?(last_executed_at)
 
         Timeout.timeout(@check_options[:timeout_in_seconds]) do

@@ -6,12 +6,15 @@
 - server: show metrics over how often checks fail, and how fast failures get resolved
 
 ## Example usage
+Checkers are expected to live under `app/checkers/*_checker.rb`
+
 ```ruby
+# app/checkers/transaction_checker.rb
 class TransactionChecker
   include DBLChecker::Job
 
   check_options(
-    every: 4.hours.to_i,
+    every: 4.hours,
     description: 'Check transactions exist and are zero in sum',
     name: 'transactions_checker',
     sla: 1.day,
@@ -37,7 +40,44 @@ class TransactionChecker
 end
 ```
 
-Find all `check_options` defined in the [DBLChecker::Check](lib/dbl_checker/check.rb) class.
+
+### Check options
+Options that can be configured per checker. You can set global defaults in the initializer as `config.default_check_options`.
+
+- `every`: how often a checker should be run (`24.hours` by default)
+- `name`: the name of the checker for statistics and notifications
+- `description`: a more detailed description of the checker for statistics and notifications
+- `sla`: your commitment how much time a failed checker should be resolved (`3.days` by default)
+- `runbook`: this is a link to a runbook, that describes how to handle a failure of this checker
+- `timout_after_seconds`: abort a checker, if it runs longer than specified (`30` by default)
+- `aggregate_failures`: when set to `false` (default) the check will exit after the first failed assertion. If set to true, all assertions are run, and errors messages will be aggregated.
+- `slack_channel`: defaults to `checkers`, this is the Slack channel to receive notifications for this checker.
+- `active`: wether or not this check should be active at the moment (defaults to `true`)
+
+### Configuration options
+Global options.
+
+- `app_version`: version of your app, this can be for example the current commit hash
+
+
+Example config:
+
+```ruby
+# config/initializers/gem_initializers/dbl_checker.rb
+DBLChecker.configure do |config|
+  # this is: https://hooks.slack.com/services/XXX
+  config.slack_webhook_url = Rails.application.credentials.dig(:slack, :checkers_endpoint)
+  config.app_version = ENV['COMMIT_HASH']
+  config.default_check_options = {
+    every: 12.hours,
+    sla: 7.days,
+    active: Rails.env.production?,
+    slack_channel: 'checkers-project_name',
+    timeout_in_seconds: 30,
+  }
+end
+
+```
 
 
 ## Deployment
