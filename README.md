@@ -8,6 +8,7 @@
 - add timestamps to the check: `started_at`, `finished_at` so we can measure the duration of each check
 - refactor `DBLChecker::Remote.instance.job_executions` to expect receiving an array of hashes
 - remove `id` from check -> not needed after we pull out the slack notifier
+- this gem should publish check results only to 1 service, which should be configurable (with options: `local` (i.e. write to same DB as the rails app), `slack`, and `checker_platform` (dbl works backend))
 
 ## Example usage
 Checkers are expected to live under `app/checkers/*_checker.rb`
