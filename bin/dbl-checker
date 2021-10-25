@@ -2,6 +2,7 @@
 
 STDERR.sync = STDOUT.sync = true
 
+require 'slop'
 require_relative '../lib/dbl_checker/manager/client'
 require_relative '../lib/dbl_checker/manager/healthz'
 

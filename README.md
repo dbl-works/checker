@@ -7,6 +7,7 @@
 - add CLI options to the dbl-checker so it can run locally without sending checks to remote (or offer a sandbox on remote)
 - add timestamps to the check: `started_at`, `finished_at` so we can measure the duration of each check
 - refactor `DBLChecker::Remote.instance.job_executions` to expect receiving an array of hashes
+- remove `id` from check -> not needed after we pull out the slack notifier
 
 ## Example usage
 Checkers are expected to live under `app/checkers/*_checker.rb`
