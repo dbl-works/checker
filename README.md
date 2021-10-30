@@ -1,5 +1,9 @@
 # Dbl Checker
 
+```ruby
+gem 'dbl-checker'
+```
+
 ## TODOs
 - remove Slack notifications from here, the server will handle this
 - server: check the SLA, if the 2nd failure of a checker occurs more than SLA-days after the 1st failure, we need to escallate that more (e.g. a different Slack notification)
