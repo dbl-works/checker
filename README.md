@@ -38,7 +38,7 @@ class TransactionChecker
   private
 
   def transactions_past_24h
-    Transaction.where('created_at >=', 24.hours.ago)
+    Transaction.where('created_at >= ?', 24.hours.ago)
   end
 
   def transactions_sum
@@ -117,10 +117,10 @@ You can also handle all errors at once, because all errors inherit from `DBLChec
 
 Run for example:
 ```shell
-bundle exec dbl-checker -c config/initializers/gem_initializers/dbl_checker
+bundle exec dbl-checker -e production -c config/initializers/gem_initializers/dbl_checker
 
 # --locally--
-bundle exec dbl-checker --config "$(pwd)/config/initializers/gem_initializers/dbl_checker"
+bundle exec dbl-checker --environment development --config "$(pwd)/config/initializers/gem_initializers/dbl_checker"
 ```
 
 You can check the current version:

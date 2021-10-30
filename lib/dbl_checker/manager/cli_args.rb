@@ -15,5 +15,6 @@ opts = Slop.parse do |o|
 end
 
 ENV['RAILS_ENV'] = opts[:environment] if ENV['RAILS_ENV'].nil?
+ENV['RAILS_ENV'] ||= 'development'
 ENV['DBL_CHECKER_MOCK_REMOTE'] = "#{@opts&.mock_remote?}"
 ENV['DBL_CHECKER_CONFIG_PATH'] = opts[:config]
