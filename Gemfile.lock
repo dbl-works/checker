@@ -4,6 +4,7 @@ PATH
     dbl-checker (0.1.0)
       activesupport (>= 5.2)
       faraday (~> 1.0)
+      slop
 
 GEM
   remote: https://rubygems.org/
@@ -133,6 +134,7 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
+    slop (4.9.1)
     thor (1.1.0)
     treetop (1.6.11)
       polyglot (~> 0.3)
@@ -143,6 +145,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-darwin-20
 
 DEPENDENCIES
   bundler
@@ -154,4 +157,4 @@ DEPENDENCIES
   rubocop-dbl
 
 BUNDLED WITH
-   2.2.13
+   2.2.24
