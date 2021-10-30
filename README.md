@@ -56,7 +56,9 @@ See the following config example; all options are optional.
 ```ruby
 # config/initializers/gem_initializers/dbl_checker.rb
 DBLChecker.configure do |config|
-  config.slack_webhook_url = Rails.application.credentials.dig(:slack, :checkers_endpoint) # e.g. https://hooks.slack.com/services/XXX
+  # @NOTE: for now, we cannot load Rails here due to the way we load the config in the dbl-checker process (outside Rails)
+  # config.slack_webhook_url = Rails.application.credentials.dig(:slack, :checkers_endpoint) # e.g. https://hooks.slack.com/services/XXX
+  config.slack_webhook_url = ENV['CHECKERS_SLACK_WEBHOOK_ENDPOINT'] # e.g. https://hooks.slack.com/services/XXX
   config.app_version = ENV['COMMIT_HASH'] # let's you pin-point each checker-execution to a certain version of your app
 
   config.dbl_checker_api_key = 'some-token' # API key for the DBLCheckerPlatform adapter
