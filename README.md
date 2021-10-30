@@ -5,10 +5,14 @@ Install the gem
 gem 'dbl-checker'
 ```
 
-Generate a migration and config file
+This gem providers a generator
 ```shell
 rails generate dbl_checker:install
 ```
+which will create
+- a model file at `app/models/dbl_check.rb`
+- a migration file `db/migrate/#{migration_version}_create_dbl_checks.rb`
+- a config file at `config/initializers/gem_initializers/dbl_checker.rb`
 
 
 ## TODOs

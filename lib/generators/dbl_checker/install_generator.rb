@@ -13,6 +13,7 @@ module DblChecker
         `cat /dev/null > "#{migration_file_path(migration_version)}"`
         prepend_file(migration_file_path(migration_version), migration_file_content)
         create_file(config_file_path, config_file_content)
+        create_file(model_file_path, model_file_content)
       end
 
       private
@@ -21,8 +22,19 @@ module DblChecker
         'config/initializers/gem_initializers/dbl_checker.rb'
       end
 
+      def model_file_path
+        'app/models/dbl_check.rb'
+      end
+
       def migration_file_path(migration_version)
         "db/migrate/#{migration_version}_create_dbl_checks.rb"
+      end
+
+      def model_file_content
+        <<~HEREDOC
+          class DBLCheck < ApplicationRecord
+          end
+        HEREDOC
       end
 
       def config_file_content
