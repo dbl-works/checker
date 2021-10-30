@@ -119,8 +119,8 @@ Run for example:
 ```shell
 bundle exec dbl-checker -c config/initializers/gem_initializers/dbl_checker
 
-# --OR--
-bundle exec dbl-checker --config config/initializers/gem_initializers/dbl_checker
+# --locally--
+bundle exec dbl-checker --config "$(pwd)/config/initializers/gem_initializers/dbl_checker"
 ```
 
 You can check the current version:

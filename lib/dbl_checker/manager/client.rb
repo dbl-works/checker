@@ -31,11 +31,11 @@ module DBLChecker
       end
 
       def executions
-        executions = fetch_executions
+        fetched_executions = fetch_executions
         checker_jobs.map do |job_klass|
           {
             job_klass: job_klass,
-            last_executed_at: executions[job_klass]&.to_time,
+            last_executed_at: fetched_executions[job_klass]&.to_time,
           }
         end
       end
