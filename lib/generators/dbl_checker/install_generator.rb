@@ -9,7 +9,7 @@ module DblChecker
 
       def create_config_file
         migration_version = `bundle exec rails g migration CreateDblChecks`[/db\/migrate\/(\d+)_/, 1]
-        prepend_file(migration_file_path, migration_file_content(migration_version))
+        prepend_file(migration_file_path(migration_version), migration_file_content)
         create_file(config_file_path, config_file_content)
       end
 
