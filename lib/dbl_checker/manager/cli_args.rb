@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'slop'
-# require_relative '../version'
+require_relative '../version'
 
 # https://github.com/leejarvis/slop#usage
 opts = Slop.parse do |o|
