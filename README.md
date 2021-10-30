@@ -1,5 +1,17 @@
 # Dbl Checker
 
+Provides a simple to use framework to write checkers for a Rails app.
+The intention is to run regular checks in production to assure for example:
+- data consistency (e.g. accounting)
+- external APIs are healthy
+- general assumptions about the app like user's are signing up every day, or perform certain actions in the app
+
+This will help to catch issues in production early.
+
+This is not a replacement for tests or error handling, but rather extends an app with active monitoring of functionality and data consistency.
+
+## Installation
+
 Install the gem
 ```ruby
 gem 'dbl-checker'
@@ -23,6 +35,7 @@ which will create
 - add timestamps to the check: `started_at`, `finished_at` so we can measure the duration of each check
 - this gem should publish check results only to 1 service, which should be configurable (with options: `local` (i.e. write to same DB as the rails app), `slack`, and `checker_platform` (dbl works backend)) -> mostly done (missing: "local")
 - add a config file, that is not the initializer (since it is unexpected, that we cannot reference anything from the app in the initializer) -> this config is just for the "cron" process, and has to contain: slack webhook url (optional), app_version, dbl-checker-api-key (optional), adapters
+- update readme
 
 ## Example usage
 Checkers are expected to live under `app/checkers/*_checker.rb`
@@ -136,7 +149,7 @@ You can also handle all errors at once, because all errors inherit from `DBLChec
 ## Deployment
 - Must have ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely
 - Must have ENV var `RAILS_ENV` defined
-- Optionally set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3073`
+- Optionally set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3000`
 - Run `bin/dbl-checker -c path/to/config/file` to launch the client process and the `/healthz` TCP server
 
 Run for example:
