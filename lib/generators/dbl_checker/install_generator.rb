@@ -63,6 +63,8 @@ module DblChecker
         minor = ::ActiveRecord::VERSION::MINOR
         <<~HEREDOC
           class CreateDBLChecks < ActiveRecord::Migration[#{major}.#{minor}]
+            disable_ddl_transaction!
+
             def change
               create_table :dbl_checks, id: :uuid do |t|
                 t.string :error
@@ -77,10 +79,10 @@ module DblChecker
 
                 t.timestamps
               end
-            end
 
-            add_index :dbl_checks, :job_klass
-            add_index :dbl_checks, %i[job_klass finished_at], order: { finished_at: :desc }
+              add_index :dbl_checks, :job_klass, algorithm: :concurrently
+              add_index :dbl_checks, %i[job_klass finished_at], order: { finished_at: :desc }, algorithm: :concurrently
+            end
           end
         HEREDOC
       end
