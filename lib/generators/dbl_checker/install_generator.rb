@@ -1,8 +1,8 @@
 require 'rails/generators/base'
-require 'rails/active_record'
 require 'active_support/core_ext/string'
 
-module DBLChecker
+# Rails' generate can't inflect the name of this class
+module DblChecker
   module Generators
     class InstallGenerator < Rails::Generators::Base
       desc 'Creates a migration and a config file.'
