@@ -102,7 +102,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    rubocop (1.22.2)
+    rubocop (1.22.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -152,6 +152,7 @@ DEPENDENCIES
   byebug
   dbl-checker!
   parse_a_changelog
+  railties (>= 5.0)
   rake
   rspec
   rubocop-dbl
