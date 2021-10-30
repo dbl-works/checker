@@ -6,7 +6,7 @@ module DBLChecker
     # that will return 200 if or client (that executs jobs) is running.
     class Healthz
       def initialize
-        port = (ENV.fetch('DBL_CHECKER_HEALTHZ_PORT') { '3073' }).to_i
+        port = (ENV.fetch('DBL_CHECKER_HEALTHZ_PORT') { '3000' }).to_i
         @server = TCPServer.new('0.0.0.0', port)
       end
 
