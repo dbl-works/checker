@@ -8,7 +8,7 @@ require_relative '../lib/dbl_checker/manager/cli_args.rb'
 require_relative '../lib/dbl-checker'
 
 config_file = ENV['DBL_CHECKER_CONFIG_PATH'] || '/app/config/initializers/gem_initializers/dbl_checker'
-if File.file?(config_file)
+if File.file?("#{config_file}.rb")
   require config_file
 else
   # @TODO: we can pass the adapters via CLI args, or put them in a config file that lives outside Rails
@@ -19,7 +19,7 @@ end
 
 # we get the class name from file name, which will be wrong if custom inflections are used.
 inflections_file = ENV['DBL_CHECKER_INFLECTIONS_PATH'] || '/app/config/initializers/inflections'
-if File.file?(inflections_file)
+if File.file?("#{inflections_file}.rb")
   require inflections_file
 end
 
