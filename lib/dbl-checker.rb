@@ -1,11 +1,27 @@
+# external dependencies
 require 'active_support/all'
-require 'dbl_checker/assertion_failed'
+
+# adapters
+require 'dbl_checker/adapters/job_executions/dbl_checker_platform'
+require 'dbl_checker/adapters/job_executions/mock'
+require 'dbl_checker/adapters/persistance/dbl_checker_platform'
+require 'dbl_checker/adapters/persistance/mock'
+require 'dbl_checker/adapters/persistance/slack'
+
+# core
 require 'dbl_checker/check'
 require 'dbl_checker/configuration'
 require 'dbl_checker/job'
-require 'dbl_checker/remote'
-require 'dbl_checker/server_error'
-require 'dbl_checker/slack_notifier'
+
+# custom errors
+require 'dbl_checker/errors/dbl_checker_error'
+require 'dbl_checker/errors/assertion_failed_error'
+require 'dbl_checker/errors/server_error'
+require 'dbl_checker/errors/config_error'
+
+
+# manager
+require 'dbl_checker/manager/client'
 
 DBLChecker.configure do |config|
   config.logger = nil
