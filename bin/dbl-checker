@@ -4,6 +4,11 @@ STDERR.sync = STDOUT.sync = true
 
 require_relative '../lib/dbl_checker/manager/client'
 require_relative '../lib/dbl_checker/manager/healthz'
+require_relative '../lib/dbl_checker/manager/cli_args.rb'
+require_relative '../lib/dbl-checker'
+
+config_file = ENV['DBL_CHECKER_CONFIG_PATH'] || 'config/initializers/gem_initializers/dbl_checker'
+require_relative "../#{config_file}"
 
 client_pid = fork do
   DBLChecker::Manager::Client.new.run
