@@ -22,6 +22,7 @@ which will create
 - add CLI options to the dbl-checker so it can run locally without sending checks to remote (or offer a sandbox on remote)
 - add timestamps to the check: `started_at`, `finished_at` so we can measure the duration of each check
 - this gem should publish check results only to 1 service, which should be configurable (with options: `local` (i.e. write to same DB as the rails app), `slack`, and `checker_platform` (dbl works backend)) -> mostly done (missing: "local")
+- add a config file, that is not the initializer (since it is unexpected, that we cannot reference anything from the app in the initializer) -> this config is just for the "cron" process, and has to contain: slack webhook url (optional), app_version, dbl-checker-api-key (optional), adapters
 
 ## Example usage
 Checkers are expected to live under `app/checkers/*_checker.rb`
