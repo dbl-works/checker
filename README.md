@@ -1,8 +1,15 @@
 # Dbl Checker
 
+Install the gem
 ```ruby
 gem 'dbl-checker'
 ```
+
+Generate a migration and config file
+```shell
+rails generate dbl_checker:install
+```
+
 
 ## TODOs
 - remove Slack notifications from here, the server will handle this
@@ -50,6 +57,14 @@ end
 
 ### Configuration
 Options that can be configured per checker. You can set global defaults in the initializer as `config.default_check_options`.
+
+```ruby
+# config/initializers/inflections.rb
+
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym 'DBL'
+end
+```
 
 See the following config example; all options are optional.
 
