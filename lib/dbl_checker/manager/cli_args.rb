@@ -18,4 +18,5 @@ end
 ENV['RAILS_ENV'] = opts[:environment] if ENV['RAILS_ENV'].nil?
 ENV['RAILS_ENV'] ||= 'development'
 ENV['DBL_CHECKER_MOCK_REMOTE'] = @opts&.mock_remote?.to_s
-ENV['DBL_CHECKER_CONFIG_PATH'] = opts[:config]
+ENV['DBL_CHECKER_CONFIG_PATH'] = opts[:config].to_s
+ENV['DBL_CHECKER_INFLECTIONS_PATH'] = opts[:inflections].to_s
