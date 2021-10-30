@@ -9,7 +9,7 @@ module DBLChecker
         def call
           json = `bundle exec rails runner -e "$RAILS_ENV" "puts #{command}.to_json"`.split.last
 
-          JSON.parse(json, symbolize_names: false)
+          JSON.parse(json, symbolize_names: false).to_h
         end
 
         private
