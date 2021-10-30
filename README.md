@@ -76,11 +76,13 @@ DBLChecker.configure do |config|
   # an adapter class is expected to either be a singleton or a regular class
   # internally, this gem will attempt to call ".instance" or ".new" on the class
   # then the method `.call` is executed.
+  # The "Local" resolves require a `DBLCheck` model to exist, that inherites from ActiveRecord.
+  # Use the install script to scaffold a migration file.
   config.adapters = {
-    # other adapters: `Slack`, `Mock`
+    # other adapters: `Slack`, `Mock`, `Local`
     # the call method expectes 1 argument (e.g. of type DBLChecker::Check)
     persistance: DBLChecker::Adapters::Persistance::DBLCheckerPlatform,
-    # other adapters: `Mock`
+    # other adapters: `Mock`, `Local`
     # the call method expects 0 arguments
     job_executions: DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform,
   }

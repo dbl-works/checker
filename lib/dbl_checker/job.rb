@@ -30,9 +30,11 @@ module DBLChecker
         return unless @check_options[:active]
         return unless due?(last_executed_at)
 
+        start = Time.current.to_i
         Timeout.timeout(@check_options[:timeout_in_seconds]) do
           perform
         end
+        @check.execution_time_in_ms = ((Time.current - start) * 1_000).to_i
 
       rescue DBLChecker::Errors::AssertionFailedError => e
         @errors << e.message
@@ -42,6 +44,7 @@ module DBLChecker
       ensure
         # write from @errors here, so we collect any errors logged before an exception occurred
         @check.error = @errors.join('\n')
+        @check.finished_at = Time.current
         persist_check
       end
 
