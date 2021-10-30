@@ -8,7 +8,8 @@ module DblChecker
       desc 'Creates a migration and a config file.'
 
       def create_config_file
-        create_file(migration_file_path, migration_file_content)
+        migration_version = `bundle exec rails g migration CreateDblChecks`[/db\/migrate\/(\d+)_/, 1]
+        prepend_file(migration_file_path, migration_file_content(migration_version))
         create_file(config_file_path, config_file_content)
       end
 
@@ -18,8 +19,8 @@ module DblChecker
         'config/initializers/gem_initializers/dbl_checker.rb'
       end
 
-      def migration_file_path
-        'db/migrate/20211024204809_create_dbl_checks.rb '
+      def migration_file_path(migration_version)
+        "db/migrate/#{migration_version}_create_dbl_checks.rb"
       end
 
       def config_file_content
