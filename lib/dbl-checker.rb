@@ -21,7 +21,6 @@ require 'dbl_checker/errors/assertion_failed_error'
 require 'dbl_checker/errors/server_error'
 require 'dbl_checker/errors/config_error'
 
-
 # manager
 require 'dbl_checker/manager/client'
 

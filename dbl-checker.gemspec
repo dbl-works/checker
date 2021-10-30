@@ -24,10 +24,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'faraday', '~> 1.0' # Slack webhooks and persistance on remote servers
   s.add_dependency 'slop' # parse CLI arguments
 
-  s.add_development_dependency 'railties', '>= 5.0'
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'byebug'
   s.add_development_dependency 'parse_a_changelog'
+  s.add_development_dependency 'railties', '>= 5.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop-dbl'

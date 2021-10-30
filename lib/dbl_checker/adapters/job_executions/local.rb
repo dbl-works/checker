@@ -17,10 +17,10 @@ module DBLChecker
         def command
           [
             '::DBLCheck',
-              ".select('DISTINCT ON (job_klass) dbl_checks.*')",
-              ".order('job_klass, finished_at DESC')",
-              ".map { |check| { check.job_klass => check.finished_at } }",
-              '.inject(:merge)',
+            ".select('DISTINCT ON (job_klass) dbl_checks.*')",
+            ".order('job_klass, finished_at DESC')",
+            '.map { |check| { check.job_klass => check.finished_at } }',
+            '.inject(:merge)',
           ].join
         end
       end

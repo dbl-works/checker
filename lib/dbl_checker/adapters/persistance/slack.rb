@@ -17,7 +17,7 @@ module DBLChecker
         @webhook_url,
         check.to_json,
         @headers,
-        )
+      )
     rescue StandardError => e
       raise DBLChecker::Errors::ServerError, "Failed to notify Slack. Error: #{e.message}"
     end

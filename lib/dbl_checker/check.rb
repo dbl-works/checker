@@ -21,8 +21,8 @@ require 'json'
 
 module DBLChecker
   class Check < OpenStruct
-    def to_json
-      self.to_h.to_json
+    def to_json(*_args)
+      to_h.to_json
     end
 
     # the remote system will have its own unique id (from the DB)
