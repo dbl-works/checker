@@ -4,8 +4,10 @@ require 'active_support/all'
 # adapters
 require 'dbl_checker/adapters/job_executions/dbl_checker_platform'
 require 'dbl_checker/adapters/job_executions/mock'
+require 'dbl_checker/adapters/job_executions/local'
 require 'dbl_checker/adapters/persistance/dbl_checker_platform'
 require 'dbl_checker/adapters/persistance/mock'
+require 'dbl_checker/adapters/persistance/local'
 require 'dbl_checker/adapters/persistance/slack'
 
 # core
