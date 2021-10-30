@@ -117,17 +117,17 @@ You can also handle all errors at once, because all errors inherit from `DBLChec
 
 Run for example:
 ```shell
-bin/dbl-checker -c config/initializers/gem_initializers/dbl_checker
+bundle exec dbl-checker -c config/initializers/gem_initializers/dbl_checker
 
 # --OR--
-bin/dbl-checker --config config/initializers/gem_initializers/dbl_checker
+bundle exec dbl-checker --config config/initializers/gem_initializers/dbl_checker
 ```
 
 You can check the current version:
 ```shell
-bin/dbl-checker -v
+bundle exec dbl-checker -v
 # --OR--
-bin/dbl-checker --version
+bundle exec dbl-checker --version
 ```
 
 
