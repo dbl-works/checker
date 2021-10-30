@@ -30,11 +30,13 @@ module DBLChecker
         return unless @check_options[:active]
         return unless due?(last_executed_at)
 
+        start = Time.current.to_i
         Timeout.timeout(@check_options[:timeout_in_seconds]) do
           perform
         end
+        @check.execution_time_in_ms = ((Time.current - start) * 1_000).to_i
 
-      rescue DBLChecker::AssertionFailed => e
+      rescue DBLChecker::Errors::AssertionFailedError => e
         @errors << e.message
       rescue Timeout::Error => e
         @errors << e.message # "execution expired"
@@ -42,8 +44,8 @@ module DBLChecker
       ensure
         # write from @errors here, so we collect any errors logged before an exception occurred
         @check.error = @errors.join('\n')
-        persist_check_on_remote
-        notify_slack
+        @check.finished_at = Time.current
+        persist_check
       end
 
       private
@@ -51,7 +53,7 @@ module DBLChecker
       def due?(last_executed_at)
         return true if last_executed_at.nil? || last_executed_at.empty?
 
-        last_executed_at < @check_options[:every].ago
+        last_executed_at.to_time < @check_options[:every].ago
       end
 
       def assert(success, message)
@@ -60,18 +62,14 @@ module DBLChecker
         if @check_options[:aggregate_failures]
           @errors << message
         else
-          raise DBLChecker::AssertionFailed, message
+          raise DBLChecker::Errors::AssertionFailedError, message
         end
       end
 
-      def persist_check_on_remote
-        DBLChecker::Remote.instance.persist(@check)
-      end
-
-      def notify_slack
-        return if DBLChecker.configuration.slack_webhook_url.nil?
-
-        DBLChecker::SlackNotifier.instance.notify(@check)
+      def persist_check
+        klass = DBLChecker.configuration.adapters[:persistance]
+        instance = klass.ancestors.include?(Singleton) ? klass.instance : klass.new
+        instance.call(@check)
       end
     end
   end

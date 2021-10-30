@@ -5,16 +5,18 @@ require 'json'
 #
 # == Schema Information
 #
-# id                                :uuid      not null
-# created_at                        :datetime  not null
-# updated_at                        :datetime  not null
-# error                             :text
-# app_version(e.g. the commit hash) :string    not null
-# timout_after_seconds              :integer
-# name                              :string    not null
-# description                       :string
-# job_klass                         :string    not null
-# runbook                           :string
+# id                                 :uuid      not null
+# created_at                         :datetime  not null
+# updated_at                         :datetime  not null
+# finished_at                        :datetime  not null
+# error                              :text
+# app_version(e.g. the commit hash)  :string    not null
+# timout_after_seconds               :integer
+# execution_time_in_ms               :integer
+# name                               :string    not null
+# description                        :string
+# job_klass                          :string    not null
+# runbook                            :string
 #
 
 module DBLChecker

@@ -1,6 +1,4 @@
 require 'active_support/all'
-require_relative '../remote'
-require_relative '../server_error'
 
 module DBLChecker
   module Manager
@@ -18,7 +16,7 @@ module DBLChecker
         loop do
           executions.each do |execution|
             puts "Job #{execution[:job_klass]} was last executed at #{execution[:last_executed_at]}"
-            puts `bundle exec rails runner -e "$RAILS_ENV" "#{execution[:job_klass]}.new.perform_check(#{execution[:last_executed_at]})"`
+            puts `bundle exec rails runner -e "$RAILS_ENV" "#{execution[:job_klass]}.new.perform_check('#{execution[:last_executed_at]}')"`
           end
 
           sleep(ITERATE_JOBS_EVERY)
@@ -33,11 +31,11 @@ module DBLChecker
       end
 
       def executions
-        executions_from_remote = fetch_executions_from_remote
+        fetched_executions = fetch_executions.stringify_keys
         checker_jobs.map do |job_klass|
           {
             job_klass: job_klass,
-            last_executed_at: executions_from_remote[job_klass]&.to_time,
+            last_executed_at: fetched_executions[job_klass].presence,
           }
         end
       end
@@ -46,8 +44,10 @@ module DBLChecker
       #   'FooChecker' => '2021-10-23 21:27:03 +0200',
       #   'BarChecker' => '2021-10-23 08:15:03 +0200',
       # }
-      def fetch_executions_from_remote
-        DBLChecker::Remote.instance.job_executions
+      def fetch_executions
+        klass = DBLChecker.configuration.adapters[:job_executions]
+        instance = klass.ancestors.include?(Singleton) ? klass.instance : klass.new
+        instance.call
       end
     end
   end
