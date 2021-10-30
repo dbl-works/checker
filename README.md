@@ -15,6 +15,9 @@ This is not a replacement for tests or error handling, but rather extends an app
 Install the gem
 ```ruby
 gem 'dbl-checker'
+
+# with version, pointing to github (until the gem was released to Rubygems.org)
+gem 'dbl-checker', '~> 0.3', git: 'git@github.com:dbl-works/checker'
 ```
 
 This gem providers a generator
