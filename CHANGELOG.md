@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2021-10-31
+### Fixed
+- allow passing the file path to custom Rails inflections for infering class names from file names correctly
+
 ## [0.2.0] - 2021-10-30
 ### Changed
 - backend is now configurable to publish check results to either: Local DB (Rails), Slack, DBL-Checker-Platform (remote server)

@@ -7,8 +7,21 @@ require_relative '../lib/dbl_checker/manager/healthz'
 require_relative '../lib/dbl_checker/manager/cli_args.rb'
 require_relative '../lib/dbl-checker'
 
-config_file = ENV['DBL_CHECKER_CONFIG_PATH'] || 'config/initializers/gem_initializers/dbl_checker'
-require config_file
+config_file = ENV['DBL_CHECKER_CONFIG_PATH'] || '/app/config/initializers/gem_initializers/dbl_checker'
+if File.file?(config_file)
+  require config_file
+else
+  # @TODO: we can pass the adapters via CLI args, or put them in a config file that lives outside Rails
+  #        so the initializer can depend on Rails, without this tool being dependent on it.
+  #        then we also don't have to raise here, since we can just use the default config.
+  raise "Config file not found: #{config_file}"
+end
+
+# we get the class name from file name, which will be wrong if custom inflections are used.
+inflections_file = ENV['DBL_CHECKER_INFLECTIONS_PATH'] || '/app/config/initializers/inflections'
+if File.file?(inflections_file)
+  require inflections_file
+end
 
 client_pid = fork do
   DBLChecker::Manager::Client.new.run
