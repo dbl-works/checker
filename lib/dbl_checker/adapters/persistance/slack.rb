@@ -10,14 +10,16 @@ module DBLChecker
       @headers = { Accept: 'application/json', 'Content-Type': 'application/json' }
     end
 
-    def notify(check)
+    def call(check)
+      raise DBLChecker::Errors::ConfigError, 'Must configure a Slack webhook URL' if @webhook_url.nil?
+
       Faraday.post(
         @webhook_url,
         check.to_json,
         @headers,
         )
     rescue StandardError => e
-      raise DBLChecker::ServerError, "Failed to notify Slack. Error: #{e.message}"
+      raise DBLChecker::Errors::ServerError, "Failed to notify Slack. Error: #{e.message}"
     end
   end
 end
