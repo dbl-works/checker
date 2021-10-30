@@ -30,7 +30,7 @@ module DBLChecker
         return unless @check_options[:active]
         return unless due?(last_executed_at)
 
-        start = Time.current.to_i
+        start = Time.current
         Timeout.timeout(@check_options[:timeout_in_seconds]) do
           perform
         end
