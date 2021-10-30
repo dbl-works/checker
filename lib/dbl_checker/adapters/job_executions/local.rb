@@ -7,10 +7,21 @@ module DBLChecker
         include Singleton
 
         def call
-          ::DBLCheck
-            .select('DISTINCT ON (job_klass) checks.*')
-            .order('job_klass, finished_at DESC')
-            .map { |check| { job_klass: check.job_klass, last_executed_at: check.finished_at } }
+          json = `bundle exec rails runner -e "$RAILS_ENV" "puts #{command}.to_json"`.split.last
+
+          JSON.parse(json, symbolize_names: false)
+        end
+
+        private
+
+        def command
+          [
+            '::DBLCheck',
+              ".select('DISTINCT ON (job_klass) dbl_checks.*')",
+              ".order('job_klass, finished_at DESC')",
+              ".map { |check| { check.job_klass => check.finished_at } }",
+              '.inject(:merge)',
+          ].join
         end
       end
     end

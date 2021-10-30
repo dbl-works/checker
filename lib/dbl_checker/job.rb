@@ -53,7 +53,7 @@ module DBLChecker
       def due?(last_executed_at)
         return true if last_executed_at.nil? || last_executed_at.empty?
 
-        last_executed_at < @check_options[:every].ago
+        last_executed_at.to_time < @check_options[:every].ago
       end
 
       def assert(success, message)

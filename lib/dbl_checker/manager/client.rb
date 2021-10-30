@@ -16,7 +16,7 @@ module DBLChecker
         loop do
           executions.each do |execution|
             puts "Job #{execution[:job_klass]} was last executed at #{execution[:last_executed_at]}"
-            puts `bundle exec rails runner -e "$RAILS_ENV" "#{execution[:job_klass]}.new.perform_check(#{execution[:last_executed_at]})"`
+            puts `bundle exec rails runner -e "$RAILS_ENV" "#{execution[:job_klass]}.new.perform_check('#{execution[:last_executed_at]}')"`
           end
 
           sleep(ITERATE_JOBS_EVERY)
@@ -31,11 +31,11 @@ module DBLChecker
       end
 
       def executions
-        fetched_executions = fetch_executions
+        fetched_executions = fetch_executions.stringify_keys
         checker_jobs.map do |job_klass|
           {
             job_klass: job_klass,
-            last_executed_at: fetched_executions[job_klass]&.to_time,
+            last_executed_at: fetched_executions[job_klass].presence,
           }
         end
       end
