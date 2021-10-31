@@ -10,6 +10,8 @@ This will help to catch issues in production early.
 
 This is not a replacement for tests or error handling, but rather extends an app with active monitoring of functionality and data consistency.
 
+Tested against Ruby 2.6 - 3.0 (see .github/workflows/test.yml).
+
 ## Installation
 
 Install the gem
