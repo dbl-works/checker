@@ -18,40 +18,28 @@ module DBLChecker
 
           if request.match?(/\/healthz\s/)
             if client_is_running?(client_pid)
-              serve_200(session)
+              serve(200, session)
               puts 'serve /healthz   OK'
             else
-              serve_400(session)
+              serve(400, session)
               puts 'serve /healthz   CLIENT ERROR'
-              puts 'DBLChecker::Manager::Client is not running anymore!'
+              puts 'DBLChecker::Manager::Client is not running!'
             end
           else
-            serve_404(session)
+            serve(404, session)
           end
 
           session.close
         end
       end
 
-      def serve_404(session)
-        session.print "HTTP/1.1 404\r\n"
+      def serve(status, session)
+        session.print "HTTP/1.1 #{status}\r\n"
         session.print "Content-Type: text/html\r\n"
         session.print "\r\n"
-        session.print "404"
-      end
-
-      def serve_200(session)
-        session.print "HTTP/1.1 200\r\n"
-        session.print "Content-Type: text/html\r\n"
-        session.print "\r\n"
-        session.print "\u2713"
-      end
-
-      def serve_400(session)
-        session.print "HTTP/1.1 400\r\n"
-        session.print "Content-Type: text/html\r\n"
-        session.print "\r\n"
-        session.print "Runner is dead!"
+        session.print "404".         if status == 404
+        session.print "\u2713"       if status == 200
+        session.print "Runner died!" if status == 400
       end
 
       # check if our runner process executes jobs
