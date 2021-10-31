@@ -37,7 +37,7 @@ module DBLChecker
         session.print "HTTP/1.1 #{status}\r\n"
         session.print "Content-Type: text/html\r\n"
         session.print "\r\n"
-        session.print "404".         if status == 404
+        session.print "404"          if status == 404
         session.print "\u2713"       if status == 200
         session.print "Runner died!" if status == 400
       end
