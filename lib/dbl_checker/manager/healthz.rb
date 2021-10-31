@@ -10,6 +10,7 @@ module DBLChecker
         @server = TCPServer.new('0.0.0.0', port)
       end
 
+      # rubocop:disable Metrics/MethodLength
       def serve(client_pid)
         puts 'Running DBLChecker::Manager::Healthz..'
 
@@ -19,28 +20,28 @@ module DBLChecker
           # https://kubernetes.io/docs/reference/using-api/health-checks/
           if request.match?(/\/(?:healthz|readyz|livez)\s/)
             if client_is_running?(client_pid)
-              serve(200, session)
+              respond_with(200, session)
               puts 'serve /healthz   OK'
             else
-              serve(400, session)
-              puts 'serve /healthz   CLIENT ERROR'
-              puts 'DBLChecker::Manager::Client is not running!'
+              respond_with(400, session)
+              puts 'serve /healthz   CLIENT ERROR, DBLChecker::Manager::Client not running'
             end
           else
-            serve(404, session)
+            respond_with(404, session)
           end
 
           session.close
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
-      def serve(status, session)
+      def respond_with(status, session)
         session.print "HTTP/1.1 #{status}\r\n"
         session.print "Content-Type: text/html\r\n"
         session.print "\r\n"
-        session.print "404"          if status == 404
+        session.print '404'          if status == 404
         session.print "\u2713"       if status == 200
-        session.print "Runner died!" if status == 400
+        session.print 'Runner died!' if status == 400
       end
 
       # check if our runner process executes jobs
