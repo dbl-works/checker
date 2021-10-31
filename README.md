@@ -1,5 +1,8 @@
 # Dbl Checker
 
+[![Test](https://github.com/dbl-works/checker/actions/workflows/test.yml/badge.svg)](https://github.com/dbl-works/checker/actions/workflows/test.yml)
+[![Lint](https://github.com/dbl-works/checker/actions/workflows/lint.yml/badge.svg)](https://github.com/dbl-works/checker/actions/workflows/lint.yml)
+
 Provides a simple to use framework to write checkers for a Rails app.
 The intention is to run regular checks in production to assure for example:
 - data consistency (e.g. accounting)
@@ -9,6 +12,8 @@ The intention is to run regular checks in production to assure for example:
 This will help to catch issues in production early.
 
 This is not a replacement for tests or error handling, but rather extends an app with active monitoring of functionality and data consistency.
+
+Tested against Ruby 2.6 - 3.0 (see .github/workflows/test.yml).
 
 ## Installation
 
