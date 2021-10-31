@@ -18,6 +18,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 DBLChecker.configure do |config|
+  config.app_version = 'some-git-sha'
   config.adapters = {
     persistance: DBLChecker::Adapters::Persistance::Mock,
     job_executions: DBLChecker::Adapters::JobExecutions::Mock,
