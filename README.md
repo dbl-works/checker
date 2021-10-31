@@ -1,4 +1,4 @@
-# Dbl Checker
+# DBL Checker
 
 [![Test](https://github.com/dbl-works/checker/actions/workflows/test.yml/badge.svg)](https://github.com/dbl-works/checker/actions/workflows/test.yml)
 
