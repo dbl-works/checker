@@ -16,7 +16,8 @@ module DBLChecker
         while session = @server.accept
           request = session.gets
 
-          if request.match?(/\/healthz\s/)
+          # https://kubernetes.io/docs/reference/using-api/health-checks/
+          if request.match?(/\/(?:healthz|readyz|livez)\s/)
             if client_is_running?(client_pid)
               serve(200, session)
               puts 'serve /healthz   OK'
