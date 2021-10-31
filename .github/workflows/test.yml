@@ -1,0 +1,35 @@
+name: Test
+on: [push]
+jobs:
+  test:
+    strategy:
+      matrix:
+        ruby: [2.6, 2.7, 3.0]
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-${{ matrix.ruby }}-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: bundle install
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install -j $(getconf _NPROCESSORS_ONLN) --retry 3
+
+      - name: Run Test
+        run: bundle exec rspec
+
+      - name: Run Changelog linter
+        run: bundle exec parse CHANGELOG.md

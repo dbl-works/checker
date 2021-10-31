@@ -36,16 +36,21 @@ module DBLChecker
           perform
           @check.execution_time_in_ms = ((Time.current - start) * 1_000).to_i
         end
+
+        @check
       rescue DBLChecker::Errors::AssertionFailedError => e
         @errors << e.message
+        @check
       rescue Timeout::Error => e
         @errors << e.message # "execution expired"
         @check.timout_after_seconds = @check_options[:timeout_in_seconds]
+        @check
       ensure
         # write from @errors here, so we collect any errors logged before an exception occurred
         @check.error = @errors.join('\n').presence
         @check.finished_at = Time.current
         persist_check
+        @check
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
