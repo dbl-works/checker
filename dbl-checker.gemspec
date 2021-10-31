@@ -8,11 +8,12 @@ Gem::Specification.new do |s|
   s.version       = DBLChecker::VERSION
   s.summary       = 'Regularly assert expectations for your application still hold true.'
   s.description   = 'Regularly assert expectations for your application still hold true.'
+  s.homepage      = 'https://github.com/dbl-works/checker'
 
   s.required_ruby_version = '>= 2.6'
 
-  s.author        = 'DBL'
-  s.email         = 'checker@dbl.works'
+  s.author        = 'Team DBL :rocket:'
+  s.email         = 'lud@dbl.works'
   s.license       = 'MIT'
 
   s.files         = Dir['lib/**/*.rb', 'spec/**/*', 'bin/*']
