@@ -26,8 +26,8 @@ module DBLChecker
     end
 
     # the remote system will have its own unique id (from the DB)
-    # but we want to be able to send a UUID to Slack
-    # so we can link to the remote system from Slack (e.g. a link to a dashboard)
+    # but we want to be able to send a UUID to avoid processing the same event multiple times,
+    # and so that we can link to the remote system from Slack (e.g. a link to a dashboard)
     def id
       @id ||= SecureRandom.uuid
     end
