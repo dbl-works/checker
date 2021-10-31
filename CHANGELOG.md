@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.3] - 2021-10-31
 ### Added
-- basic tests
+- added basic tests
+
 ### Fixed
 - fixed missing usage of inflections path
 - fixed checking for file path

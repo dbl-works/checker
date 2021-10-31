@@ -18,7 +18,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-${{ matrix.ruby }}-${{ hashFiles('**/Gemfile.lock') }}
+          key: ${{ runner.os }}-gems-${{ matrix.ruby }}-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
 
@@ -30,6 +30,3 @@ jobs:
 
       - name: Run Test
         run: bundle exec rspec
-
-      - name: Run Changelog linter
-        run: bundle exec parse CHANGELOG.md
