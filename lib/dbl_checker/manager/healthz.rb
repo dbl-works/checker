@@ -3,7 +3,7 @@ require 'socket'
 module DBLChecker
   module Manager
     # Very simple TCP server to serve a /healthz endpoint
-    # that will return 200 if or client (that executs jobs) is running.
+    # that will return 200 if the DBLChecker::Manager::Client (that executs jobs) is running.
     class Healthz
       def initialize
         port = (ENV.fetch('DBL_CHECKER_HEALTHZ_PORT') { '3000' }).to_i
