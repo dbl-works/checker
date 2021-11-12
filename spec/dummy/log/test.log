@@ -10,3 +10,15 @@ InactiveChecker: test_aggregates_failures
 ------------------------------------------------
 FailingWithManyChecker: test_aggregates_failures
 ------------------------------------------------
+-------------------------------------------
+SucceedingChecker: test_aggregates_failures
+-------------------------------------------
+------------------------------------------------
+FailingWithManyChecker: test_aggregates_failures
+------------------------------------------------
+--------------------------------
+FailingChecker: test_fails_early
+--------------------------------
+-----------------------------------------
+InactiveChecker: test_aggregates_failures
+-----------------------------------------
