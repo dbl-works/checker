@@ -13,13 +13,16 @@ module DBLChecker
 
   # Configuration class
   class Configuration
+    # rubocop:disable Layout/EmptyLinesAroundAttributeAccessor
     attr_accessor :slack_webhook_url # optional
     attr_accessor :app_version # typically this is the commit hash of the current deployed code
     attr_accessor :default_check_options
     attr_accessor :logger
     attr_accessor :adapters
     attr_accessor :dbl_checker_api_key # to persist events on DBL checker platform
+    # rubocop:enable Layout/EmptyLinesAroundAttributeAccessor
 
+    # rubocop:disable Metrics/MethodLength
     def initialize
       @logger = nil
       @slack_webhook_url = nil
@@ -35,9 +38,44 @@ module DBLChecker
         runbook: nil,
       }
       @adapters = {
-        persistance: DBLChecker::Adapters::Persistance::DBLCheckerPlatform,
-        job_executions: DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform,
+        persistance: %i[local slack],
+        job_executions: :local,
       }
+      validate_adapters!
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    # rubocop:disable all
+    def persistance_adapters
+      Array.wrap(adapters[:persistance]).map do |adapter|
+        case adapter
+        when :local then DBLChecker::Adapters::Persistance::Local.instance
+        when :slack then DBLChecker::Adapters::Persistance::Slack.instance
+        when :dbl_platform then DBLChecker::Adapters::Persistance::DBLCheckerPlatform.instance
+        else
+          if adapter.ancestors.include?(Singleton)
+            adapter.instance
+          elsif adapter.respond_to?(:new) && adapter.new.methods.include?(:call)
+            adapter.new
+          elsif adapter.methods.include?(:call)
+            adapter
+          end
+        end
+      end
+    end
+    # rubocop:enable all
+
+    def validate_adapters!
+      return if Array.wrap(adapters[:persistance]).all? { |adapter| valid_adapter?(adapter) }
+      return if Array.wrap(adapters[:job_executions]).all? { |adapter| valid_adapter?(adapter) }
+
+      raise DBLChecker::Errors::ConfigError, 'Unknown or invalid adapters configured.'
+    end
+
+    def valid_adapter?(adapter)
+      return true if adapter.in?(%i[local slack dbl_platform])
+
+      DBLChecker::Adapters::Validator.call(adapter)
     end
   end
 end

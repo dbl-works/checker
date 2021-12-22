@@ -120,8 +120,8 @@ DBLChecker.configure do |config|
   # Use the install script to scaffold a migration file.
   config.adapters = {
     # other adapters: `Slack`, `Mock`, `Local`
-    # the call method expectes 1 argument (e.g. of type DBLChecker::Check)
-    persistance: DBLChecker::Adapters::Persistance::DBLCheckerPlatform,
+    # either pass a symbol for build-in adapters, or a class/module; anything that has a #call/.call method, you can also use a Singelton
+    persistance: %i[slack local],
     # other adapters: `Mock`, `Local`
     # the call method expects 0 arguments
     job_executions: DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform,
