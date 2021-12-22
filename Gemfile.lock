@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dbl-checker (0.3.4)
+    dbl-checker (0.4.0)
       activesupport (>= 5.2)
       faraday (~> 1.0)
       slop
