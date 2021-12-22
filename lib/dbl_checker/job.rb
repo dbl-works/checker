@@ -66,9 +66,9 @@ module DBLChecker
       end
 
       def persist_check
-        klass = DBLChecker.configuration.adapters[:persistance]
-        instance = klass.ancestors.include?(Singleton) ? klass.instance : klass.new
-        instance.call(@check)
+        DBLChecker.configuration.persistance.each do |strategy|
+          strategy.call(@check)
+        end
       end
 
       def finish
