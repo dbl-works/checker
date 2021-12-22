@@ -13,14 +13,14 @@ module DBLChecker
 
   # Configuration class
   class Configuration
-    # rubocop:disable Style/AccessorGrouping, Layout/EmptyLinesAroundAttributeAccessor
+    # rubocop:disable Layout/EmptyLinesAroundAttributeAccessor
     attr_accessor :slack_webhook_url # optional
     attr_accessor :app_version # typically this is the commit hash of the current deployed code
     attr_accessor :default_check_options
     attr_accessor :logger
     attr_accessor :adapters
     attr_accessor :dbl_checker_api_key # to persist events on DBL checker platform
-    # rubocop:enable Style/AccessorGrouping, Layout/EmptyLinesAroundAttributeAccessor
+    # rubocop:enable Layout/EmptyLinesAroundAttributeAccessor
 
     # rubocop:disable Metrics/MethodLength
     def initialize

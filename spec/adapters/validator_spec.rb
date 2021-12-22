@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class Validator < ActiveSupport::TestCase
-  class InvalidAdapter; end
+  class InvalidAdapter; end # rubocop:disable Lint/EmptyClass
 
   def valid?(adapter)
     DBLChecker::Adapters::Validator.call(adapter)
