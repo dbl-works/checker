@@ -3,12 +3,38 @@ require 'test_helper'
 class Validator < ActiveSupport::TestCase
   class InvalidAdapter; end # rubocop:disable Lint/EmptyClass
 
+  module ValidAdapterClass
+    def self.call
+    end
+  end
+
+  class ValidAdapterInstance
+    def call
+    end
+  end
+
+  class ValidAdapterSingleton
+    require 'singleton'
+    include Singleton
+    def initialize
+    end
+
+    def call
+    end
+  end
+
   def valid?(adapter)
     DBLChecker::Adapters::Validator.call(adapter)
   end
 
   test 'detects an invalid adapter' do
     assert !valid?(InvalidAdapter)
+  end
+
+  test 'allows class, instance, and singleton adapters' do
+    [ValidAdapterClass, ValidAdapterInstance, ValidAdapterSingleton].each do |adapter|
+      assert valid?(adapter)
+    end
   end
 
   test 'persistance: local is a valid adapter' do
