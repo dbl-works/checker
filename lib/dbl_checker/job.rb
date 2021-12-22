@@ -26,7 +26,7 @@ module DBLChecker
         @errors = []
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize
       def perform_check(last_executed_at = nil)
         return unless @check_options[:active]
         return unless due?(last_executed_at)
@@ -48,7 +48,7 @@ module DBLChecker
         # don't use `ensure` here to DRY out "finish", because "ensure" will run,
         # even if we return early from one of the guard clauses
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       private
 
