@@ -9,6 +9,7 @@ require 'dbl_checker/adapters/persistance/dbl_checker_platform'
 require 'dbl_checker/adapters/persistance/mock'
 require 'dbl_checker/adapters/persistance/local'
 require 'dbl_checker/adapters/persistance/slack'
+require 'dbl_checker/adapters/validator'
 
 # core
 require 'dbl_checker/check'
