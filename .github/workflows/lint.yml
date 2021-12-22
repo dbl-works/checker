@@ -25,5 +25,5 @@ jobs:
           bundle config path vendor/bundle
           bundle install -j $(getconf _NPROCESSORS_ONLN) --retry 3
 
-      - name: Run Changelog linter
-        run: bundle exec parse CHANGELOG.md
+      - name: Run Rubocop
+        run: bundle exec rubocop

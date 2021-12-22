@@ -10,7 +10,6 @@ module DBLChecker
         @server = TCPServer.new('0.0.0.0', port)
       end
 
-      # rubocop:disable Metrics/MethodLength
       def serve(client_pid)
         puts 'Running DBLChecker::Manager::Healthz..'
 
@@ -33,7 +32,6 @@ module DBLChecker
           session.close
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def respond_with(status, session)
         session.print "HTTP/1.1 #{status}\r\n"
