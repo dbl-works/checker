@@ -66,8 +66,8 @@ module DBLChecker
       end
 
       def persist_check
-        DBLChecker.configuration.persistance.each do |strategy|
-          strategy.call(@check)
+        DBLChecker.configuration.persistance_adapters.each do |adapter|
+          adapter.call(@check)
         end
       end
 

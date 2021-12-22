@@ -41,40 +41,40 @@ module DBLChecker
         persistance: %i[local slack],
         job_executions: :local,
       }
-      validate_strategies!
+      validate_adapters!
     end
     # rubocop:enable Metrics/MethodLength
 
     # rubocop:disable all
-    def persistance
-      Array.wrap(adapters[:persistance]).map do |strategy|
-        case strategy
+    def persistance_adapters
+      Array.wrap(adapters[:persistance]).map do |adapter|
+        case adapter
         when :local then DBLChecker::Adapters::Persistance::Local.instance
         when :slack then DBLChecker::Adapters::Persistance::Slack.instance
         when :dbl_platform then DBLChecker::Adapters::Persistance::DBLCheckerPlatform.instance
         else
-          if strategy.ancestors.include?(Singleton)
-            strategy.instance
-          elsif strategy.respond_to?(:new) && strategy.new.methods.include?(:call)
-            strategy.new
-          elsif strategy.methods.include?(:call)
-            strategy
+          if adapter.ancestors.include?(Singleton)
+            adapter.instance
+          elsif adapter.respond_to?(:new) && adapter.new.methods.include?(:call)
+            adapter.new
+          elsif adapter.methods.include?(:call)
+            adapter
           end
         end
       end
     end
     # rubocop:enable all
 
-    def validate_strategies!
-      return if Array.wrap(adapters[:persistance]).all? { |strategy| valid_strategy?(strategy) }
+    def validate_adapters!
+      return if Array.wrap(adapters[:persistance]).all? { |adapter| valid_adapter?(adapter) }
 
       raise DBLChecker::Errors::ConfigError, 'Unknown or invalid persistance strategies given.'
     end
 
-    def valid_strategy?(strategy)
-      return true if strategy.in?(%i[local slack dbl_platform])
+    def valid_adapter?(adapter)
+      return true if adapter.in?(%i[local slack dbl_platform])
 
-      DBLChecker::Adapters::Validator.call(strategy)
+      DBLChecker::Adapters::Validator.call(adapter)
     end
   end
 end
