@@ -41,7 +41,7 @@ module DBLChecker
                 type: 'header',
                 text: {
                   type: 'plain_text',
-                  text: ":octagonal_sign: Checker Failed! #{check.job_klass}",
+                  text: ":octagonal_sign: #{check.job_klass} Failed!",
                   emoji: true,
                 },
               },
