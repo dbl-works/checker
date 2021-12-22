@@ -59,9 +59,10 @@ module DblChecker
             # internally, this gem will attempt to call ".instance" or ".new" on the class
             # then the method `.call` is executed.
             config.adapters = {
-              # other adapters: `Slack`, `Mock`, `Local`
+              # other adapters: `:slack`, `:mock`, `:local`
               # the call method expectes 1 argument (e.g. of type DBLChecker::Check)
-              persistance: DBLChecker::Adapters::Persistance::Local,
+              # either pass a symbol for build-in adapters, or a class/module; anything that has a #call/.call method, you can also use a Singelton
+              persistance: %i[slack local],
               # other adapters: `Mock`, `Local`
               # the call method expects 0 arguments
               job_executions: DBLChecker::Adapters::JobExecutions::Local,
