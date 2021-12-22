@@ -31,7 +31,7 @@ rails generate dbl_checker:install
 which will create
 - a model file at `app/models/dbl_check.rb`
 - a migration file `db/migrate/#{migration_version}_create_dbl_checks.rb`
-- a config file at `config/initializers/gem_initializers/dbl_checker.rb`
+- a config file at `config/initializers/dbl_checker.rb`
 
 
 ## TODOs
@@ -94,7 +94,7 @@ end
 See the following config example; all options are optional.
 
 ```ruby
-# config/initializers/gem_initializers/dbl_checker.rb
+# config/initializers/dbl_checker.rb
 DBLChecker.configure do |config|
   # @NOTE: for now, we cannot load Rails here due to the way we load the config in the dbl-checker process (outside Rails)
   # config.slack_webhook_url = Rails.application.credentials.dig(:slack, :checkers_endpoint) # e.g. https://hooks.slack.com/services/XXX
@@ -161,10 +161,10 @@ You can also handle all errors at once, because all errors inherit from `DBLChec
 
 Run for example:
 ```shell
-bundle exec dbl-checker -e production -c config/initializers/gem_initializers/dbl_checker
+bundle exec dbl-checker -e production -c config/initializers/dbl_checker
 
 # --locally--
-bundle exec dbl-checker --environment development --config "$(pwd)/config/initializers/gem_initializers/dbl_checker"
+bundle exec dbl-checker --environment development --config "$(pwd)/config/initializers/dbl_checker"
 ```
 
 You can check the current version:

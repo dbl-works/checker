@@ -19,7 +19,7 @@ module DblChecker
       private
 
       def config_file_path
-        'config/initializers/gem_initializers/dbl_checker.rb'
+        'config/initializers/dbl_checker.rb'
       end
 
       def model_file_path
