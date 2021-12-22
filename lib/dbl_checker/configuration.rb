@@ -67,8 +67,9 @@ module DBLChecker
 
     def validate_adapters!
       return if Array.wrap(adapters[:persistance]).all? { |adapter| valid_adapter?(adapter) }
+      return if Array.wrap(adapters[:job_executions]).all? { |adapter| valid_adapter?(adapter) }
 
-      raise DBLChecker::Errors::ConfigError, 'Unknown or invalid persistance strategies given.'
+      raise DBLChecker::Errors::ConfigError, 'Unknown or invalid adapters configured.'
     end
 
     def valid_adapter?(adapter)

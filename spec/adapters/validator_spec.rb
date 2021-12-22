@@ -11,19 +11,31 @@ class Validator < ActiveSupport::TestCase
     assert !valid?(InvalidAdapter)
   end
 
-  test 'local is a valid adapter' do
+  test 'persistance: local is a valid adapter' do
     assert valid?(DBLChecker::Adapters::Persistance::Local)
   end
 
-  test 'slack is a valid adapter' do
+  test 'persistance: slack is a valid adapter' do
     assert valid?(DBLChecker::Adapters::Persistance::Slack)
   end
 
-  test 'mock is a valid adapter' do
+  test 'persistance: mock is a valid adapter' do
     assert valid?(DBLChecker::Adapters::Persistance::Mock)
   end
 
-  test 'DBL platform is a valid adapter' do
+  test 'persistance: DBL platform is a valid adapter' do
     assert valid?(DBLChecker::Adapters::Persistance::DBLCheckerPlatform)
+  end
+
+  test 'job executions: local is a valid adapter' do
+    assert valid?(DBLChecker::Adapters::JobExecutions::Local)
+  end
+
+  test 'job executions: mock is a valid adapter' do
+    assert valid?(DBLChecker::Adapters::JobExecutions::Mock)
+  end
+
+  test 'job executions: DBL platform is a valid adapter' do
+    assert valid?(DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform)
   end
 end
