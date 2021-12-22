@@ -119,8 +119,9 @@ DBLChecker.configure do |config|
   # The "Local" resolves require a `DBLCheck` model to exist, that inherites from ActiveRecord.
   # Use the install script to scaffold a migration file.
   config.adapters = {
-    # other adapters: `Slack`, `Mock`, `Local`
+    # other adapters: `:slack`, `:mock`, `:local`
     # either pass a symbol for build-in adapters, or a class/module; anything that has a #call/.call method, you can also use a Singelton
+    # :slack will only send messages if the check fails
     persistance: %i[slack local],
     # other adapters: `Mock`, `Local`
     # the call method expects 0 arguments
