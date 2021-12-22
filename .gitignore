@@ -34,3 +34,4 @@ checker/spec/dummy/log/*
 
 # vscode
 TAGS
+.vscode/settings.json

@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'byebug'
-  s.add_development_dependency 'parse_a_changelog'
   s.add_development_dependency 'railties', '>= 5.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
