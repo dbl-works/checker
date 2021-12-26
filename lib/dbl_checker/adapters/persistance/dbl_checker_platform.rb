@@ -16,6 +16,7 @@ module DBLChecker
             Accept: 'application/json',
             Authorization: "Bearer #{ENV['DBL_CHECKER_API_KEY']}",
             'Content-Type': 'application/json',
+            'X-Environment': DBLChecker.configuration.environment.to_s
           }
         end
 
