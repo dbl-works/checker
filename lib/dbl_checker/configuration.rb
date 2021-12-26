@@ -20,6 +20,7 @@ module DBLChecker
     attr_accessor :logger
     attr_accessor :adapters
     attr_accessor :dbl_checker_api_key # to persist events on DBL checker platform
+    attr_accessor :environment
     # rubocop:enable Layout/EmptyLinesAroundAttributeAccessor
 
     # rubocop:disable Metrics/MethodLength
