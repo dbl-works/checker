@@ -26,15 +26,14 @@ module DBLChecker
         @errors = []
       end
 
-      # rubocop:disable Metrics/AbcSize
       def perform_check(last_executed_at = nil)
         return unless @check_options[:active]
         return unless due?(last_executed_at)
 
+        @start_time = Time.current
+
         Timeout.timeout(@check_options[:timeout_in_seconds]) do
-          start = Time.current
           perform
-          @check.execution_time_in_ms = ((Time.current - start) * 1_000).to_i
         end
 
         finish
@@ -48,7 +47,6 @@ module DBLChecker
         # don't use `ensure` here to DRY out "finish", because "ensure" will run,
         # even if we return early from one of the guard clauses
       end
-      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -73,6 +71,8 @@ module DBLChecker
 
       def finish
         # write from @errors here, so we collect any errors logged before an exception occurred
+        # same for the execution time, we want to also measure it, if we resuced an error during perfom
+        @check.execution_time_in_ms = ((Time.current - @start_time) * 1_000).to_i
         @check.error = @errors.join('\n').presence
         @check.finished_at = Time.current
         persist_check
