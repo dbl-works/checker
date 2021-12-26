@@ -57,6 +57,10 @@ module DBLChecker
                   },
                   {
                     type: 'mrkdwn',
+                    text: "*environment*:\n #{DBLChecker.configuration.environment}",
+                  },
+                  {
+                    type: 'mrkdwn',
                     text: "*app version*:\n #{check.app_version}",
                   },
                   {
