@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- allows passing `environment` through for better logging, [#8](https://github.com/dbl-works/checker/pull/7)
+- allows passing `environment` through for better logging, [#10](https://github.com/dbl-works/checker/pull/10)
 
 
 
