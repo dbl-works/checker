@@ -40,8 +40,9 @@ module DblChecker
       def config_file_content
         <<~HEREDOC
           DBLChecker.configure do |config|
-            # config.slack_webhook_url = ENV['slack-mock'] # e.g. https://hooks.slack.com/services/XXX
-            config.app_version = ENV['COMMIT_SHA'] # let's you pin-point each checker-execution to a certain version of your app
+            config.slack_webhook_url = ENV['DBL_CHECKER_SLACK_WEBHOOK_URL'] # e.g. https://hooks.slack.com/services/XXX
+            config.app_version = "commit-#{ENV['GIT_SHA']}" # consistent with our naming convention for docker images
+            config.environment = ENV['RAILS_ENV'] # for Slack notifications
 
             # config.dbl_checker_api_key = 'some-token' # API key for the DBLCheckerPlatform adapter
 
