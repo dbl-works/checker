@@ -23,12 +23,7 @@ module DBLChecker
     attr_accessor :environment
     # rubocop:enable Layout/EmptyLinesAroundAttributeAccessor
 
-    # rubocop:disable Metrics/MethodLength
     def initialize
-      @logger = nil
-      @slack_webhook_url = nil
-      @dbl_checker_api_key = nil
-      @app_version = nil
       @default_check_options = {
         every: 24.hours,
         sla: 3.days,
@@ -44,7 +39,6 @@ module DBLChecker
       }
       validate_adapters!
     end
-    # rubocop:enable Metrics/MethodLength
 
     # rubocop:disable all
     def persistance_adapters
