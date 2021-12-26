@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Ensure `execution_time_in_ms` is stored when checks are failing, [#11](https://github.com/dbl-works/checker/pull/11)
 
+### Added
+- allows passing `environment` through for better logging, [#10](https://github.com/dbl-works/checker/pull/10)
+
 
 
 ## [0.4.0] - 2021-12-22
