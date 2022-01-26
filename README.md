@@ -140,7 +140,7 @@ DBLChecker.configure do |config|
 end
 ```
 
-Config for tests:
+### Config for tests
 
 ```ruby
 # spec/support/dbl_checker.rb
@@ -154,6 +154,11 @@ DBLChecker.configure do |config|
   }
 end
 ```
+
+### Slack notifications
+To understand the structure of the used template, a simple example [Slack template](slack_template.json) is provided. You may configure your own own one using the [Slack Kite Builder](https://app.slack.com/block-kit-builder/T9PAX51DM#%7B%22blocks%22:%5B%7B%22type%22:%22header%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22:octagonal_sign:%20Checker%20Failed!%20$ENV_job_klass%22,%22emoji%22:true%7D%7D,%7B%22type%22:%22divider%22%7D,%7B%22type%22:%22section%22,%22fields%22:%5B%7B%22type%22:%22mrkdwn%22,%22text%22:%22*error*:%5Cn%20$DBL_CHECK_error%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*app%20version*:%5Cn%20$DBL_CHECK_app_version%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*timeout%20after%20seconds*:%5Cn%20$DBL_CHECK_timeout_after_seconds%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*execution%20time%20in%20ms*:%5Cn%20$DBL_CHECK_execution_time_in_ms%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*name*:%5Cn%20$DBL_CHECK_name%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*description*:%5Cn%20$DBL_CHECK_description%22%7D,%7B%22type%22:%22mrkdwn%22,%22text%22:%22*finished%20at*:%5Cn%20$DBL_CHECK_finished_at%22%7D%5D%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22Check%20the%20following%20runbook%20on%20how%20to%20handle%20this%20failure:%22%7D,%22accessory%22:%7B%22type%22:%22button%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Runbook%22%7D,%22value%22:%22click_me_123%22,%22url%22:%22https://google.com%22,%22action_id%22:%22button-action%22%7D%7D%5D%7D) (this link leads you to the Kite Builder with the default template of this gem prefilled in case you want some boilerplate to start).
+
+If you want to use a custom Slack template, overwrite the existing [Slack-Adapter](lib/dbl_checker/adapters/persistance/slack.rb) accordingly.
 
 ### Custom Adapters
 You can pass any class/model that in one way or another implements a `call` methods.
