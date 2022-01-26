@@ -10,9 +10,28 @@ The intention is to run regular checks in production to assure for example:
 
 This will help to catch issues in production early.
 
-This is not a replacement for tests or error handling, but rather extends an app with active monitoring of functionality and data consistency.
+This is neither a replacement for tests nor for error handling, but rather extends an app with active monitoring of functionality and data consistency.
 
+### Some practical examples
+- Assume, your sign up/log in depends on an external OAuth provider. For what ever reason, your API key for this OAuth provider expired, or you forgot to configure it in production. It might take a while for you to figure this one out (since locally and on your staging this could work as it uses different API keys, and different credentials/ENV vars). One possibility for a checker is to verify, that you had at least one successful login (or sign up) on your app in the past 24 hours, and run this checker daily. If that checker fails, you know you must investivate the login and sign up functionality. Keeping a checker more general helps you catch more errors; No sign ups could for example also be rooted in a fault outside your app, like marketing could have sent out a wrong link in the last promotional email, or your loadbalancer is misconfigured, etc.
+- Assume, your app depends on an external API for any e.g. data processing or part of a user flow (e.g. to fetch currency exchange rates, book a ticket, etc.). You likely test this feature against some sandbox environment (we assume, this test is passed), and you also test it after your first production release. Sadly, in our experience, external APIs sometimes introduce breaking changes, or they go offline for a longer period, or your IP has changed and you forgot to allowlist your new IP. When your app is large enough, you cannot possibly check all those things regularly manually. Write a checker that pings said external API once a day, or once a week, or once every hour, depending on your business needs. Know you can rest assured, that you'll be notified of any fault as soon as possible.
+- Assume your application handles payment in any form, and stores these in a `transactions` table. Payments depends on many working pieces, like 3DS secure, external providers, correct CORS settings, etc. You could add a checker, that checks if you got at least one transaction record every hour/day/week to catch issues with your payment system/provider as early as possible.
+
+Find an example checker as code below.
+
+### Runbooks
+If you wish, you can write runbooks on how to handle each failed checker, and pass the URL to your runbook to the checker; this URL will then be included in the error messsge (i.e. for Slack, you can click on the failure notification and will be redirected to the correct runbook).
+
+### Supported Ruby & Rails Versions
+Tested against Rails 6 \
 Tested against Ruby 2.6 - 3.0 (see .github/workflows/test.yml).
+
+## Contribute
+Contributions are welcome 🙂 \
+Please check the open **Issues** (or open one if you find any!). \
+Please check open [**TODOs**](TODOs.md).
+
+Just open a PR. If you are unsure about it, open an issue first (or comment on an existing one).
 
 ## Installation
 
@@ -34,19 +53,10 @@ which will create
 - a config file at `config/initializers/dbl_checker.rb`
 
 
-## TODOs
-- remove Slack notifications from here, the server will handle this
-- server: check the SLA, if the 2nd failure of a checker occurs more than SLA-days after the 1st failure, we need to escallate that more (e.g. a different Slack notification)
-- server: show metrics over how often checks fail, and how fast failures get resolved
-- add CLI options to the dbl-checker so it can run locally without sending checks to remote (or offer a sandbox on remote)
-- add timestamps to the check: `started_at`, `finished_at` so we can measure the duration of each check
-- this gem should publish check results only to 1 service, which should be configurable (with options: `local` (i.e. write to same DB as the rails app), `slack`, and `checker_platform` (dbl works backend)) -> mostly done (missing: "local")
-- add a config file, that is not the initializer (since it is unexpected, that we cannot reference anything from the app in the initializer) -> this config is just for the "cron" process, and has to contain: slack webhook url (optional), app_version, dbl-checker-api-key (optional), adapters
-- update readme
-
-## Example usage
+## Writing Checkers
 Checkers are expected to live under `app/checkers/*_checker.rb`
 
+A simple checker may look like the following:
 ```ruby
 # app/checkers/transaction_checker.rb
 class TransactionChecker
@@ -125,7 +135,7 @@ DBLChecker.configure do |config|
     persistance: %i[slack local],
     # other adapters: `Mock`, `Local`
     # the call method expects 0 arguments
-    job_executions: DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform,
+    job_executions: :local,
   }
 end
 ```
@@ -145,6 +155,14 @@ DBLChecker.configure do |config|
 end
 ```
 
+### Custom Adapters
+You can pass any class/model that in one way or another implements a `call` methods.
+This gem will figure out, wether to instantiate your passed object (e.g. by calling `.new` or `.instance` on it), or if you passed a class/module that exposes a `.call` class-method.
+
+**Persistance**: The `call` method expects one argument that is an instance of a `Check` class. The aim is to persist this in some form (e.g. by sending it to Slack, another API, or an internal database). By default, this will send a notification to slack and persist a record in your local database.
+
+**JobExecutions**: The `call` method expects no arguments. It returns an array of checker-class names mapped to their last execution time. The checker service uses this to determin which checkers have to run (remember, each checker can define how often it has to be execute). By default, this queries your local database.
+
 ### Error Handling
 All errors happening within this gem are wrapped in one of these custom error classes:
 - `DBLChecker::Errors::AssertionFailedError` -> an assertion in your check failed. This is swallowed and errors are written sent to the persistance layer
@@ -155,10 +173,10 @@ You can also handle all errors at once, because all errors inherit from `DBLChec
 
 
 ## Deployment
-- Must have ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely
-- Must have ENV var `RAILS_ENV` defined
-- Optionally set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3000`
+- must set ENV var `RAILS_ENV`
 - Run `bin/dbl-checker -c path/to/config/file` to launch the client process and the `/healthz` TCP server
+- [optional]] ENV var `DBL_CHECKER_API_KEY` to persist jobs remotely
+- [optional] set `DBL_CHECKER_HEALTHZ_PORT`, defaults to `3000`
 
 Run for example:
 ```shell
