@@ -146,11 +146,11 @@ end
 # spec/support/dbl_checker.rb
 
 # you could also stub the adapters's "#call" method
-# allow(DBLChecker::Adapters::Persistance::DBLCheckerPlatform.instance).to receive(:call)
+# allow(DBLChecker::Adapters::Persistance::Local.instance).to receive(:call)
 DBLChecker.configure do |config|
   config.adapters = {
-    persistance: DBLChecker::Adapters::Persistance::Mock,
-    job_executions: DBLChecker::Adapters::JobExecutions::Mock,
+    persistance: :mock,
+    job_executions: :mock,
   }
 end
 ```
