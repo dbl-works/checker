@@ -93,6 +93,7 @@ end
 ### Configuration
 Options that can be configured per checker. You can set global defaults in the initializer as `config.default_check_options`.
 
+When using Rais, ensure to inflect on `DBL`for this to work with Rails' autoloader/Zeitwerk.
 ```ruby
 # config/initializers/inflections.rb
 
