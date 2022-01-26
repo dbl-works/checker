@@ -45,8 +45,7 @@ module DBLChecker
       #   'BarChecker' => '2021-10-23 08:15:03 +0200',
       # }
       def fetch_executions
-        klass = DBLChecker.configuration.adapters[:job_executions]
-        instance = klass.ancestors.include?(Singleton) ? klass.instance : klass.new
+        instance = DBLChecker.configuration.job_executions_adapter
         instance.call
       end
     end

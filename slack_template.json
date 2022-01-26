@@ -32,7 +32,7 @@
           "text": "Dashboard",
           "emoji": false
         },
-        "value": "squake_abc123-def456",
+        "value": "my_app_abc123-def456",
         "url": "https://checkers.dbl.works",
         "action_id": "button-action"
       }

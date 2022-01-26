@@ -40,35 +40,38 @@ module DBLChecker
       validate_adapters!
     end
 
-    # rubocop:disable all
     def persistance_adapters
       Array.wrap(adapters[:persistance]).map do |adapter|
         case adapter
         when :local then DBLChecker::Adapters::Persistance::Local.instance
         when :slack then DBLChecker::Adapters::Persistance::Slack.instance
         when :dbl_platform then DBLChecker::Adapters::Persistance::DBLCheckerPlatform.instance
+        when :mock then DBLChecker::Adapters::Persistance::Mock.instance
         else
-          if adapter.ancestors.include?(Singleton)
-            adapter.instance
-          elsif adapter.respond_to?(:new) && adapter.new.methods.include?(:call)
-            adapter.new
-          elsif adapter.methods.include?(:call)
-            adapter
-          end
+          DBLChecker::Adapters::Resolver.call(adapter)
         end
       end
     end
-    # rubocop:enable all
+
+    def job_executions_adapter
+      case adapters[:job_executions]
+      when :local then DBLChecker::Adapters::JobExecutions::Local.instance
+      when :mock then DBLChecker::Adapters::JobExecutions::Mock.instance
+      when :dbl_platform then DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform.instance
+      else
+        DBLChecker::Adapters::Resolver.call(adapter)
+      end
+    end
 
     def validate_adapters!
       return if Array.wrap(adapters[:persistance]).all? { |adapter| valid_adapter?(adapter) }
-      return if Array.wrap(adapters[:job_executions]).all? { |adapter| valid_adapter?(adapter) }
+      return if Array.wrap(adapters[:job_executions]).all? { |adapter| valid_adapter?(adapter, skip: %i[slack]) }
 
       raise DBLChecker::Errors::ConfigError, 'Unknown or invalid adapters configured.'
     end
 
-    def valid_adapter?(adapter)
-      return true if adapter.in?(%i[local slack dbl_platform])
+    def valid_adapter?(adapter, skip: [])
+      return true if adapter.in?(%i[local slack dbl_platform mock] - skip)
 
       DBLChecker::Adapters::Validator.call(adapter)
     end

@@ -66,7 +66,7 @@ module DblChecker
               persistance: %i[slack local],
               # other adapters: `Mock`, `Local`
               # the call method expects 0 arguments
-              job_executions: DBLChecker::Adapters::JobExecutions::Local,
+              job_executions: :local,
             }
           end
         HEREDOC
