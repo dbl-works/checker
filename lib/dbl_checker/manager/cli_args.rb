@@ -9,11 +9,11 @@ opts = Slop.parse do |o|
   o.string '-e', '--environment', 'sets the RAILS_ENV variable'
   o.string '-c', '--config', 'path to the config file'
   o.string '-i', '--inflections', 'path to an Active Support inflection file'
-  o.on '--version', 'print the version' do
+  o.on '-v', '--version', 'print the version' do
     puts DBLChecker::VERSION
     exit
   end
-  o.on '--help', 'print all available options' do
+  o.on '-h', '--help', 'print all available options' do
     puts o
     exit
   end
