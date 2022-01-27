@@ -186,11 +186,21 @@ You can also handle all errors at once, because all errors inherit from `DBLChec
 
 Run for example:
 ```shell
-bundle exec dbl-checker -e production -c config/initializers/dbl_checker
+bundle exec dbl-checker -e production
 
 # --locally--
-bundle exec dbl-checker --environment development --config "$(pwd)/config/initializers/dbl_checker"
+bundle exec dbl-checker --environment development --config ".../config/initializers/dbl_checker" --inflections ".../config/initializers/inflections"
 ```
+
+👉  replace `...` with whatever path you have locally
+
+**CLI args**:
+* `--environment` (short: `-e`): set to same as `RAILS_ENV`/`RACK_ENV`, used for logging and passed to notifications
+* `--inflections` (short: `-i`): path to the Rails inflections file, default: `/app/config/initializers/inflections`
+* `--config` (short: `-c`): path to the gem's initializer, default: `/app/config/initializers/dbl_checker`
+
+See [this file](lib/dbl_checker/manager/cli_args.rb) for all arguments and how they are parsed.
+
 
 You can check the current version:
 ```shell
