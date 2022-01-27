@@ -189,7 +189,10 @@ Run for example:
 bundle exec dbl-checker -e production
 
 # --locally--
-bundle exec dbl-checker --environment development --config ".../config/initializers/dbl_checker" --inflections ".../config/initializers/inflections"
+bundle exec dbl-checker \
+  --environment development \
+  --config ".../config/initializers/dbl_checker" \
+  --inflections ".../config/initializers/inflections"
 ```
 
 👉  replace `...` with whatever path you have locally
