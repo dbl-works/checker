@@ -22,6 +22,7 @@
 .byebug_history
 checker/spec/dummy/log/*
 !checker/spec/dummy/log/.keep
+**/*.pid
 
 .env
 
