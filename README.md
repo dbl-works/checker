@@ -198,8 +198,7 @@ bundle exec dbl-checker --environment development --config ".../config/initializ
 * `--environment` (short: `-e`): set to same as `RAILS_ENV`/`RACK_ENV`, used for logging and passed to notifications
 * `--inflections` (short: `-i`): path to the Rails inflections file, default: `/app/config/initializers/inflections`
 * `--config` (short: `-c`): path to the gem's initializer, default: `/app/config/initializers/dbl_checker`
-
-See [this file](lib/dbl_checker/manager/cli_args.rb) for all arguments and how they are parsed.
+* `--help` prints out all options; see [this file](lib/dbl_checker/manager/cli_args.rb) for how they are implemented
 
 
 You can check the current version:

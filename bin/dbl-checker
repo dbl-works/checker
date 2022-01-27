@@ -6,7 +6,7 @@ require 'active_support/all'
 
 require_relative '../lib/dbl_checker/manager/client'
 require_relative '../lib/dbl_checker/manager/healthz'
-require_relative '../lib/dbl_checker/manager/cli_args.rb'
+require_relative '../lib/dbl_checker/manager/cli_args'
 require_relative '../lib/dbl-checker'
 
 config_file = ENV['DBL_CHECKER_CONFIG_PATH'].presence || '/app/config/initializers/dbl_checker'

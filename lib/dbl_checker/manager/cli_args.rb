@@ -13,6 +13,10 @@ opts = Slop.parse do |o|
     puts DBLChecker::VERSION
     exit
   end
+  o.on '--help', 'print all available options' do
+    puts o
+    exit
+  end
 end
 
 ENV['RAILS_ENV'] = opts[:environment] if ENV['RAILS_ENV'].nil?
