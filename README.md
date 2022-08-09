@@ -40,7 +40,7 @@ Install the gem
 gem 'dbl-checker'
 
 # with version, pointing to github (until the gem was released to Rubygems.org)
-gem 'dbl-checker', '~> 0.3', git: 'git@github.com:dbl-works/checker'
+gem 'dbl-checker', '~> 0.5', git: 'git@github.com:dbl-works/checker'
 ```
 
 This gem providers a generator
