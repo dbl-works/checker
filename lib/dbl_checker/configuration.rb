@@ -59,7 +59,7 @@ module DBLChecker
       when :mock then DBLChecker::Adapters::JobExecutions::Mock.instance
       when :dbl_platform then DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform.instance
       else
-        DBLChecker::Adapters::Resolver.call(adapter)
+        DBLChecker::Adapters::Resolver.call(adapters)
       end
     end
 
