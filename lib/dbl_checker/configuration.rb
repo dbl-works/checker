@@ -58,7 +58,6 @@ module DBLChecker
       when :local then DBLChecker::Adapters::JobExecutions::Local.instance
       when :mock then DBLChecker::Adapters::JobExecutions::Mock.instance
       when :dbl_platform then DBLChecker::Adapters::JobExecutions::DBLCheckerPlatform.instance
-      when Array then raise 'Received an array, but exepcted a class, singelton, or an instance of a class.'
       else
         DBLChecker::Adapters::Resolver.call(adapters[:job_executions])
       end

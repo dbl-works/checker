@@ -8,7 +8,11 @@ module DBLChecker
           return adapter.new if instance_method?(adapter)
           return adapter if klass_method?(adapter)
 
-          raise DBLChecker::Errors::ConfigError, 'Unknown or invalid adapters configured.'
+          raise DBLChecker::Errors::ConfigError, <<~TXT
+            Unknown or invalid adapters passed.
+            Got #{adapter.class}.
+            Expected a class or in instance of a class/singelton.
+          TXT
         end
 
         def singelton_method?(adapter)
